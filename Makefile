@@ -6,3 +6,6 @@
 # Detect Windows for the correct binary extension.
 ifeq ($(OS),Windows_NT)
 	EXE := .exe
+else
+	EXE :=
+endif
