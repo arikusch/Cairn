@@ -9,3 +9,6 @@ ifeq ($(OS),Windows_NT)
 else
 	EXE :=
 endif
+
+RUST_BIN := rust/target/release/cairn$(EXE)
+GO_BIN   := bin/cairn-run$(EXE)
