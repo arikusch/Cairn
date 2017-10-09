@@ -15,3 +15,6 @@ GO_BIN   := bin/cairn-run$(EXE)
 
 .PHONY: all build build-rust build-go test test-rust test-go fmt vet clean demo
 
+all: build
+
+build: build-rust build-go ## Build both binaries
