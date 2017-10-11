@@ -21,3 +21,7 @@ build: build-rust build-go ## Build both binaries
 
 build-rust: ## Build the Rust engine (release)
 	cd rust && cargo build --release
+
+build-go: ## Build the Go wrapper
+	@mkdir -p bin
+	cd go && go build -o ../$(GO_BIN) ./cmd/cairn-run
