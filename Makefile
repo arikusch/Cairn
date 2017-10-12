@@ -25,3 +25,6 @@ build-rust: ## Build the Rust engine (release)
 build-go: ## Build the Go wrapper
 	@mkdir -p bin
 	cd go && go build -o ../$(GO_BIN) ./cmd/cairn-run
+
+test: test-rust test-go ## Run all tests
+
