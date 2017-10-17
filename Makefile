@@ -28,3 +28,6 @@ build-go: ## Build the Go wrapper
 
 test: test-rust test-go ## Run all tests
 
+test-rust: ## Run Rust tests
+	cd rust && cargo test
+
