@@ -34,3 +34,6 @@ test-rust: ## Run Rust tests
 test-go: ## Run Go tests
 	cd go && go test ./...
 
+fmt: ## Format both codebases
+	cd rust && cargo fmt
+	cd go && gofmt -w .
