@@ -31,3 +31,6 @@ test: test-rust test-go ## Run all tests
 test-rust: ## Run Rust tests
 	cd rust && cargo test
 
+test-go: ## Run Go tests
+	cd go && go test ./...
+
