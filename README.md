@@ -50,3 +50,15 @@ load-bearing, and it is stated plainly throughout.
 - [License](#license)
 
 ---
+
+## Surface reading — the problem
+
+Every build system re-does work it has already done: change one comment and the
+toolchain recompiles a hundred files that did not move. Language-native caches
+exist, but they are islands — Cargo does not know what `make` did, `go build`
+does not know what your bundler did, and none share a cache with the shell
+script gluing the pipeline together.
+
+Cairn takes the opposite position. It treats a build step as an opaque
+function — *declared inputs, a command, declared outputs* — and memoizes it by
+content. If the inputs and the command hash to a key seen before, the recorded
