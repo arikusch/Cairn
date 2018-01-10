@@ -38,3 +38,15 @@ load-bearing, and it is stated plainly throughout.
 - [First descent — quickstart transcripts](#first-descent--quickstart-transcripts)
 - [The three strata: MISS → STORE → HIT](#the-three-strata-miss--store--hit)
 - [Reading the rock — data layout on disk](#reading-the-rock--data-layout-on-disk)
+- [Cache-key anatomy](#cache-key-anatomy)
+- [Rust ↔ Go interop](#rust--go-interop)
+- [Guided walk — the scripted demo](#guided-walk--the-scripted-demo)
+- [The performance ledger](#the-performance-ledger)
+- [Field hazards — failure modes](#field-hazards--failure-modes)
+- [Known limits of the survey](#known-limits-of-the-survey)
+- [Integration recipes](#integration-recipes)
+- [Command reference](#command-reference)
+- [Roadmap — unexplored seams](#roadmap--unexplored-seams)
+- [License](#license)
+
+---
