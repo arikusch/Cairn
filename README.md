@@ -86,3 +86,15 @@ You need a Rust toolchain (1.70+) and Go (1.21+; the module targets 1.24).
 ```bash
 make build     # -> rust/target/release/cairn  and  bin/cairn-run
 make test      # cargo test + go test ./...
+make demo      # build everything, then run examples/demo.sh
+make clean     # cargo clean + rm -rf bin .cairn-cache
+```
+
+To build each tool by hand: `cd rust && cargo build --release`, and
+`cd go && go build -o ../bin/cairn-run ./cmd/cairn-run`.
+
+## First descent — quickstart transcripts
+
+Hash a file to see a content address (16 lowercase hex characters — a
+zero-padded 64-bit FNV-1a digest), then wrap a real command. The first run is a
+**cache MISS** (the command runs, its output is captured); the second is a
