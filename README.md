@@ -110,3 +110,15 @@ $ cairn-run --verbose --input input.txt --output output.txt -- \
 cairn-run: cache MISS 8c165ae10d5fa0a2
 cairn-run: stored manifest 8c165ae10d5fa0a2 (1 output(s))
 
+$ rm output.txt   # then re-run the identical command
+$ cairn-run --verbose --input input.txt --output output.txt -- \
+      sh -c 'tr a-z A-Z < input.txt > output.txt'
+cairn-run: cache HIT 8c165ae10d5fa0a2 (restored 1 output(s))
+$ cat output.txt
+GREETINGS FROM CAIRN
+```
+
+The output round-trips exactly; nothing recompiled. The [interop
+section](#rust--go-interop) shows the engine reading and verifying this same
+manifest.
+
