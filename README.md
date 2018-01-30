@@ -98,3 +98,15 @@ To build each tool by hand: `cd rust && cargo build --release`, and
 Hash a file to see a content address (16 lowercase hex characters — a
 zero-padded 64-bit FNV-1a digest), then wrap a real command. The first run is a
 **cache MISS** (the command runs, its output is captured); the second is a
+**cache HIT** (nothing executes, the output is laid back down):
+
+```console
+$ printf 'greetings from cairn' > input.txt
+$ cairn hash input.txt
+2e94eeb351265c82          20  input.txt
+
+$ cairn-run --verbose --input input.txt --output output.txt -- \
+      sh -c 'tr a-z A-Z < input.txt > output.txt'
+cairn-run: cache MISS 8c165ae10d5fa0a2
+cairn-run: stored manifest 8c165ae10d5fa0a2 (1 output(s))
+
