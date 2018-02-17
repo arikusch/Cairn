@@ -134,3 +134,15 @@ Every wrapped command travels the same three-layer section:
         ▼   manifests/<key>.json exists?
    no ──┴── yes
    │         │
+  MISS      HIT ── restore every output blob, skip the command
+  run cmd
+   │
+  STORE ── capture outputs as content-addressed blobs, write manifest
+```
+
+Three rules govern the strata:
+
+1. **MISS runs; HIT restores.** A hit never executes your command. If restoring
+   a hit *fails* (say, a pruned blob), the surveyor does not error — it falls
+   through and re-runs, then re-stores. The cache degrades to a miss, never to a
+   broken build.
