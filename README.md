@@ -194,3 +194,15 @@ for each command argument, in order:
 ```
 
 Three properties fall out of this layout: inputs are **sorted by path** before
+hashing, so `-i b.c -i a.c` equals `-i a.c -i b.c`; **every command argument is
+folded in**, so changing a flag or the command produces a different key and
+unrelated steps never collide; and **paths are normalized to forward slashes**,
+so a manifest written on Windows is a legitimate hit on Linux and vice-versa.
+The format version is part of the stream, so bumping it cleanly invalidates
+every old key rather than risking a silent misread.
+
+### Reference vectors
+
+Both test suites assert the canonical FNV-1a vectors — `""` →
+`cbf29ce484222325`, `"a"` → `af63dc4c8601ec8c`, `"foobar"` →
+`85944171f73967e8` — so the two implementations can never quietly diverge. The
