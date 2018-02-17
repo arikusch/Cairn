@@ -182,3 +182,15 @@ details live in [`docs/FORMAT.md`](docs/FORMAT.md).
 
 A cache key identifies one logical build step: the FNV-1a digest of a single
 NUL-delimited byte stream, assembled in this exact order (`·` marks a `\x00`):
+
+```
+"cairn-key" ·
+<format-version> ·                 (decimal ASCII, currently "1")
+for each input entry, SORTED ascending by path:
+    <path> · <digest> · <size> ·   (path uses forward slashes on every OS)
+"cmd" ·
+for each command argument, in order:
+    <arg> ·
+```
+
+Three properties fall out of this layout: inputs are **sorted by path** before
