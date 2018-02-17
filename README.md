@@ -206,3 +206,15 @@ every old key rather than risking a silent misread.
 Both test suites assert the canonical FNV-1a vectors — `""` →
 `cbf29ce484222325`, `"a"` → `af63dc4c8601ec8c`, `"foobar"` →
 `85944171f73967e8` — so the two implementations can never quietly diverge. The
+full table lives in [`docs/FORMAT.md`](docs/FORMAT.md).
+
+### The honest caveat — FNV-1a is not cryptographic
+
+FNV-1a has **no collision resistance and no pre-image resistance** against a
+deliberate adversary. Cairn is a build cache, not a security boundary. It was
+chosen because it is deterministic across platforms and languages,
+dependency-free (a few lines in any language), and fast enough to detect the
+*accidental* change that is a cache's actual job.
+
+Do **not** rely on a Cairn digest to detect malicious tampering. If you need
+that, layer a signed manifest or a cryptographic digest *on top of* Cairn — do
