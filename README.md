@@ -218,3 +218,15 @@ dependency-free (a few lines in any language), and fast enough to detect the
 
 Do **not** rely on a Cairn digest to detect malicious tampering. If you need
 that, layer a signed manifest or a cryptographic digest *on top of* Cairn — do
+not substitute it. This limitation is stated identically in `docs/FORMAT.md`,
+in the Rust `hash` module docs, and here, on purpose.
+
+## Rust ↔ Go interop
+
+The two tools are not merely compatible; they are *interchangeable* at the
+format boundary — anything one writes, the other can read, restore, and verify:
+
+```console
+# Go surveyor writes a manifest during a normal wrapped run…
+$ cairn-run --input input.txt --output output.txt -- \
+      sh -c 'tr a-z A-Z < input.txt > output.txt'
