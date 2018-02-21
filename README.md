@@ -266,3 +266,15 @@ the exact interop path above.
   <img src="docs/assets/ledger.svg" alt="A terminal showing a cache MISS followed by a HIT, beside a ledger recording the relative shape of the two events" width="760">
 </p>
 
+Cairn ships **no benchmark numbers, and this README invents none.** A cache's
+payoff is entirely a function of *your* workload — how expensive the wrapped
+command is, how large the outputs are, and how often inputs change. A headline
+speedup would be dishonest; the only number that matters is the one you measure.
+To keep an honest ledger:
+
+1. **Establish the miss cost** — `rm -rf .cairn-cache`, then
+   `time cairn-run --input src.c --output a.o -- cc -c src.c -o a.o`. This is the
+   command's cost plus a small overhead for hashing inputs and storing outputs.
+2. **Measure the hit cost** — run the identical command again under `time`. A
+   hit does no compilation: its cost is hashing declared inputs, one manifest
+   read, and copying output blobs back.
