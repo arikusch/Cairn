@@ -242,3 +242,15 @@ key 8c165ae10d5fa0a2: 1 ok, 0 missing, 0 corrupt, key_matches=true
 OK: cache is healthy
 ```
 
+The `producer` field records which tool wrote a manifest (`cairn-rust` or
+`cairn-go`) — useful when auditing — but it does not affect the key or the
+bytes. A store is a shared seam; either tool may quarry it.
+
+## Guided walk — the scripted demo
+
+A scripted end-to-end walk builds both tools and demonstrates
+hash → MISS → HIT → cross-language restore/verify in one pass:
+
+```bash
+./examples/demo.sh            # Linux / macOS
+powershell examples/demo.ps1  # Windows
