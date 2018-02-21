@@ -278,3 +278,15 @@ To keep an honest ledger:
 2. **Measure the hit cost** — run the identical command again under `time`. A
    hit does no compilation: its cost is hashing declared inputs, one manifest
    read, and copying output blobs back.
+3. **Compute your own ratio** — miss time over hit time. Cheap command with huge
+   outputs? Unimpressive. Expensive command with small outputs? Dramatic.
+
+What you *can* rely on structurally, without numbers: a hit's cost scales with
+**input hashing + output copy**, not with the original command's complexity;
+hashing is a single linear pass in 64&nbsp;KB chunks, so memory is bounded
+regardless of file size; and dedup means disk growth tracks *distinct* output
+bytes, not the number of cached steps. The bars in the illustration show the
+*shape* of a miss-versus-hit event, not a measurement — replace them with your
+own timings before you cite anything.
+
+## Field hazards — failure modes
