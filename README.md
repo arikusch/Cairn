@@ -254,3 +254,15 @@ hash → MISS → HIT → cross-language restore/verify in one pass:
 ```bash
 ./examples/demo.sh            # Linux / macOS
 powershell examples/demo.ps1  # Windows
+```
+
+It runs in a throwaway temp directory, executing the same command twice to show
+a miss then a hit, then hands the manifest to the engine to restore and verify —
+the exact interop path above.
+
+## The performance ledger
+
+<p align="center">
+  <img src="docs/assets/ledger.svg" alt="A terminal showing a cache MISS followed by a HIT, beside a ledger recording the relative shape of the two events" width="760">
+</p>
+
