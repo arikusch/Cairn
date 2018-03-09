@@ -302,3 +302,15 @@ Know the terrain before you descend.
 | **Manifest tampering** | `verify` reports `key_matches=false`. | Verify recomputes the key from the manifest's own inputs+command. |
 | **Hash collision (adversarial)** | Possible — FNV-1a isn't collision-resistant. | See the honest caveat. Not a trust boundary. |
 
+`cairn verify --key <k>` is your integrity probe: it checks that every
+referenced blob exists, that each blob still hashes to its recorded digest, and
+that the manifest's index still recomputes to its stored key. All three must
+hold for the cache to be *healthy* for that key.
+
+## Known limits of the survey
+
+Stated plainly:
+
+- **You declare inputs and outputs.** Cairn does no dependency discovery — a
+  feature (language-agnostic) and a responsibility (you must be complete).
+- **No eviction / GC yet.** The store grows until you delete it; dedup slows
