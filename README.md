@@ -326,3 +326,15 @@ Stated plainly:
 ## Integration recipes
 
 Cairn slots in anywhere you already invoke a command.
+
+**Wrap a Makefile recipe** — prefix the command; declare inputs and outputs:
+
+```makefile
+a.o: src.c
+	cairn-run --input src.c --output a.o -- cc -c src.c -o a.o
+```
+
+**Cache a bundler step in CI** — persist `.cairn-cache/` between runs (as a CI
+cache directory) and wrap the expensive command:
+
+```bash
