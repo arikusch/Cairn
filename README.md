@@ -350,3 +350,15 @@ store:
 cairn-run --force --input src.c --output a.o -- cc -c src.c -o a.o
 ```
 
+**Audit a shared store** — compute the key with the engine, then inspect and
+verify without running anything:
+
+```bash
+key=$(cairn key --input src.c -- cc -c src.c -o a.o)
+cairn show   --key "$key"
+cairn verify --key "$key"
+```
+
+## Command reference
+
+### `cairn` — the Rust engine
