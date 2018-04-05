@@ -26,3 +26,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - "The performance ledger" guidance: how to measure miss vs hit cost for
+  your own workload instead of trusting a headline number.
+- Manifest and blob writes are fsynced before the atomic rename, so a crash
+  cannot leave a half-written object where a reader might find it.
+
+### Fixed
+
+- `cairn verify` now reports missing and corrupt blobs by digest on separate
+  lines, so a long list stays readable in narrow terminals.
+
