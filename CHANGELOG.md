@@ -62,3 +62,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- The manifest writer in the Go wrapper is hand-rolled (like the Rust one)
+  instead of relying on map iteration order.
+
+## [1.0.0] - 2026-02-08
+
+### Added
+
+- First stable release. The v1 format is frozen: on-disk layout, key stream,
+  and canonical manifest JSON will not change without a format-version bump.
