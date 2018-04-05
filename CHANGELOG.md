@@ -44,3 +44,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   argument into the key.
 - Key-stability tests in both engines covering argument order, flags, and
   paths normalized to forward slashes.
+
+### Changed
+
+- Inputs are sorted by path **before** hashing in both implementations, so
+  `-i b.c -i a.c` and `-i a.c -i b.c` produce one key.
+
+## [2.4.0] - 2026-04-26
+
+### Added
