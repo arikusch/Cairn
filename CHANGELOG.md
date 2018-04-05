@@ -53,3 +53,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [2.4.0] - 2026-04-26
 
 ### Added
+
+- `--base-dir` (Go wrapper and engine) to resolve `--input`/`--output`
+  relative to a directory other than the process working directory.
+- `--out-dir` for `cairn restore`.
+- Canonical manifest field order is now guaranteed by construction in both
+  writers and asserted in the test suites.
+
+### Changed
+
