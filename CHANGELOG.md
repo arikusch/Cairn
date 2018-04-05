@@ -71,3 +71,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - First stable release. The v1 format is frozen: on-disk layout, key stream,
   and canonical manifest JSON will not change without a format-version bump.
+- Full verification path: `cairn verify --key K` checks blob presence, blob
+  re-hashing, and key recomputation from the manifest's own inputs.
+
+### Notes
+
+- FNV-1a remains intentionally **non-cryptographic**; Cairn is a build
+  cache, not a security boundary. See `docs/FORMAT.md` for the rationale.
+
+## [0.9.0] - 2025-03-16
