@@ -35,3 +35,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `cairn verify` now reports missing and corrupt blobs by digest on separate
   lines, so a long list stays readable in narrow terminals.
 
+## [3.2.0] - 2026-06-14
+
+### Added
+
+- "Cache-key anatomy" documentation: the exact NUL-delimited key stream,
+  with the rationale for sorting inputs by path and folding every command
+  argument into the key.
+- Key-stability tests in both engines covering argument order, flags, and
+  paths normalized to forward slashes.
