@@ -80,3 +80,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   cache, not a security boundary. See `docs/FORMAT.md` for the rationale.
 
 ## [0.9.0] - 2025-03-16
+
+### Added
+
+- Cross-language demo: the script builds both tools, shows a miss then a
+  hit, and hands the manifest to the other tool to restore and verify.
+- `Store::verify_manifest` / `VerifyManifest` returning a structured
+  ok/missing/corrupt/key_matches report.
+
+## [0.8.0] - 2024-04-07
