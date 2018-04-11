@@ -134,3 +134,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Notes
 
 - Failed commands are never cached; the exit code is propagated as-is.
+
+## [0.4.0] - 2020-11-08
+
+### Added
+
+- RFC 8259 string escaping in the canonical JSON writers (short escapes for
+  `"`, `\`, `\n`, `\r`, `\t`; lowercase `\uXXXX` for other control
+  characters).
+- Path normalization to forward slashes, so a manifest written on Windows is
