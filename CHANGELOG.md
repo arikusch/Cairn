@@ -107,3 +107,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `cairn-run hash` and `cairn-run version` standalone subcommands.
 
 ## [0.6.0] - 2022-06-12
+
+### Added
+
+- `docs/FORMAT.md` — the normative specification of hashing, the cache-key
+  stream, the manifest JSON, and the on-disk layout.
+- `Makefile` targets (`build`, `test`, `fmt`, `vet`, `demo`, `clean`) and
+  the scripted demo under `examples/`.
+
+### Changed
