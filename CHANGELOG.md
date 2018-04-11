@@ -98,3 +98,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   being read whole.
 
 ## [0.7.0] - 2023-05-21
+
+### Added
+
+- Continuous integration across three jobs: Rust (fmt, clippy, test,
+  release build), Go (vet, gofmt, test, build), and a cross-language interop
+  job that runs the demo end to end.
+- `cairn-run hash` and `cairn-run version` standalone subcommands.
+
+## [0.6.0] - 2022-06-12
