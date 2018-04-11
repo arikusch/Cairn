@@ -125,3 +125,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - **Go wrapper (`cairn-run`)**: wraps any command, restores declared
+  outputs on a hit, captures them on a miss, and writes manifests that are
+  byte-compatible with the Rust engine.
+- `--force` (always run, still record) and `--verbose` (narrate every cache
+  decision on stderr).
+- Cross-language reference vectors asserted in both test suites.
+
+### Notes
+
+- Failed commands are never cached; the exit code is propagated as-is.
