@@ -116,3 +116,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   the scripted demo under `examples/`.
 
 ### Changed
+
+- `cairn show` prints the manifest exactly as stored: canonical, compact,
+  fixed key order.
+
+## [0.5.0] - 2021-10-17
+
+### Added
+
+- **Go wrapper (`cairn-run`)**: wraps any command, restores declared
