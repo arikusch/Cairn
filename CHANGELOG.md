@@ -143,3 +143,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `"`, `\`, `\n`, `\r`, `\t`; lowercase `\uXXXX` for other control
   characters).
 - Path normalization to forward slashes, so a manifest written on Windows is
+  a legitimate hit on Linux and vice-versa.
+
+## [0.3.0] - 2019-09-22
+
+### Added
+
+- `cairn verify` with the three-part health check: every referenced blob
+  exists, each blob re-hashes to its recorded digest, and the stored key
+  recomputes from the manifest's own index.
