@@ -89,3 +89,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   ok/missing/corrupt/key_matches report.
 
 ## [0.8.0] - 2024-04-07
+
+### Added
+
+- Deduplicated blob storage sharded by the first two hex characters of the
+  digest (`objects/<aa>/<digest>`), shared by both tools.
+- Bounded-memory hashing: files are streamed in 64 KiB chunks instead of
+  being read whole.
+
+## [0.7.0] - 2023-05-21
