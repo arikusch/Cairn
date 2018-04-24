@@ -161,3 +161,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - The canonical cache-key stream: `"cairn-key"` + format version + sorted
   input entries + `"cmd"` + command arguments, all NUL-delimited.
+- Reference vectors for FNV-1a 64-bit (`""`, `"a"`, `"foobar"`) pinned in
+  the engine's tests.
+
+### Changed
+
+- Inputs are hashed with size included, so a truncated copy of a file can
+  never collide with the original by digest alone.
+
+## [0.1.0] - 2017-11-05
