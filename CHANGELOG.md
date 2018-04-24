@@ -152,3 +152,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `cairn verify` with the three-part health check: every referenced blob
   exists, each blob re-hashes to its recorded digest, and the stored key
   recomputes from the manifest's own index.
+- Atomic writes for blobs and manifests: write a `.tmp` sibling, then
+  rename into place.
+
+## [0.2.0] - 2018-10-14
+
+### Added
+
+- The canonical cache-key stream: `"cairn-key"` + format version + sorted
+  input entries + `"cmd"` + command arguments, all NUL-delimited.
