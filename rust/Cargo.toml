@@ -2,3 +2,4 @@
 name = "cairn"
 version = "5.1.0"
 edition = "2021"
+description = "Universal content-addressed build cache engine and CLI"
