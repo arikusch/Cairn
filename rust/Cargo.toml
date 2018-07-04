@@ -12,3 +12,4 @@ name = "cairn"
 path = "src/main.rs"
 
 [lib]
+name = "cairn"
