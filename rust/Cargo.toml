@@ -11,3 +11,4 @@ readme = "../README.md"
 name = "cairn"
 path = "src/main.rs"
 
+[lib]
