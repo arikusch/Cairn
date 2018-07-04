@@ -362,3 +362,50 @@ cairn verify --key "$key"
 ## Command reference
 
 ### `cairn` — the Rust engine
+
+| Command   | Purpose                                                           |
+| --------- | ----------------------------------------------------------------- |
+| `hash`    | Print content digests (and sizes) of one or more files.           |
+| `key`     | Compute a cache key from `--input` files and an optional `-- cmd`. |
+| `store`   | Store `--output` files and write a manifest for the computed key. |
+| `restore` | Restore outputs for `--key` into `--out-dir` (default `.`).       |
+| `verify`  | Verify integrity for `--key`; reports ok/missing/corrupt + key.   |
+| `show`    | Print a manifest as canonical JSON.                               |
+| `version` | Print the tool version and format version.                        |
+
+Global options: `--cache-dir DIR` (default `.cairn-cache`), `--base-dir DIR`
+(default `.`), and `--` to end flags and begin the command.
+
+### `cairn-run` — the Go surveyor
+
+```
+cairn-run [--cache-dir DIR] [--base-dir DIR] \
+          [--input F]... [--output F]... [--force] [--verbose] \
+          -- <command> [args...]
+
+cairn-run hash <file>...     # standalone, prints digests
+cairn-run version            # standalone, prints version + format version
+```
+
+On a hit the declared outputs are restored and the command is skipped; on a
+miss the command runs, outputs are captured, and a manifest is written. Failed
+commands are never cached. `--verbose` narrates every cache decision on stderr.
+
+## Roadmap — unexplored seams
+
+Directions, not promises — the current release excludes them:
+
+- **Store maintenance** — `gc`/prune pass for unreferenced blobs; size/age caps.
+- **Concurrency-safe writes** — advisory locking so parallel builds share safely.
+- **Richer output declaration** — glob or directory outputs.
+- **Remote seams** — optional shared/remote store for a team or CI fleet.
+
+Each would extend the format and bump `version` rather than silently changing
+the contract.
+
+## License
+
+MIT — see [LICENSE](LICENSE). Normative format spec:
+[`docs/FORMAT.md`](docs/FORMAT.md). Change history: [`CHANGELOG.md`](CHANGELOG.md).
+
+<!-- draft note 23 -->
