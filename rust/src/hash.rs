@@ -35,3 +35,10 @@ impl Default for Hasher {
 
 impl Hasher {
     /// Create a fresh hasher seeded with the FNV offset basis.
+    pub fn new() -> Self {
+        Self {
+            state: FNV_OFFSET_BASIS,
+        }
+    }
+
+    /// Absorb a chunk of bytes into the running digest.
