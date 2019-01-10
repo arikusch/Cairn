@@ -21,3 +21,10 @@ const FNV_PRIME: u64 = 0x0000_0100_0000_01b3;
 ///
 /// Feed bytes with [`Hasher::update`] and read the final digest with
 /// [`Hasher::finalize`] (numeric) or [`Hasher::finalize_hex`] (canonical
+/// 16-character lowercase hex string).
+#[derive(Clone, Copy, Debug)]
+pub struct Hasher {
+    state: u64,
+}
+
+impl Default for Hasher {
