@@ -28,3 +28,10 @@ pub struct Hasher {
 }
 
 impl Default for Hasher {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Hasher {
+    /// Create a fresh hasher seeded with the FNV offset basis.
