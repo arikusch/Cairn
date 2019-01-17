@@ -42,3 +42,10 @@ impl Hasher {
     }
 
     /// Absorb a chunk of bytes into the running digest.
+    pub fn update(&mut self, bytes: &[u8]) {
+        let mut state = self.state;
+        for &byte in bytes {
+            state ^= u64::from(byte);
+            state = state.wrapping_mul(FNV_PRIME);
+        }
+        self.state = state;
