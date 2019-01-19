@@ -57,3 +57,20 @@ impl Json {
                     v.write_to(out);
                 }
                 out.push('}');
+            }
+        }
+    }
+
+    /// Borrow this value as an object's entries, if it is an object.
+    pub fn as_object(&self) -> Option<&[(String, Json)]> {
+        match self {
+            Json::Object(e) => Some(e),
+            _ => None,
+        }
+    }
+
+    /// Look up a key in an object value.
+    pub fn get(&self, key: &str) -> Option<&Json> {
+        self.as_object()?
+            .iter()
+            .find(|(k, _)| k == key)
