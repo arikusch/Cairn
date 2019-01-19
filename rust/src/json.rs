@@ -39,3 +39,21 @@ impl Json {
             Json::Array(items) => {
                 out.push('[');
                 for (i, item) in items.iter().enumerate() {
+                    if i > 0 {
+                        out.push(',');
+                    }
+                    item.write_to(out);
+                }
+                out.push(']');
+            }
+            Json::Object(entries) => {
+                out.push('{');
+                for (i, (k, v)) in entries.iter().enumerate() {
+                    if i > 0 {
+                        out.push(',');
+                    }
+                    write_json_string(k, out);
+                    out.push(':');
+                    v.write_to(out);
+                }
+                out.push('}');
