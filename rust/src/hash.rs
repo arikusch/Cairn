@@ -71,3 +71,10 @@ pub fn hash_bytes(bytes: &[u8]) -> String {
     h.finalize_hex()
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn known_vectors() {
+        // Empty input hashes to the offset basis.
