@@ -57,3 +57,10 @@ impl Hasher {
     }
 
     /// Return the canonical digest: a zero-padded, lowercase, 16-char hex
+    /// string. This is the exact form Cairn uses as a content address and the
+    /// form the Go implementation must reproduce byte-for-byte.
+    pub fn finalize_hex(&self) -> String {
+        format!("{:016x}", self.state)
+    }
+}
+
