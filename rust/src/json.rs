@@ -92,3 +92,21 @@ impl Json {
             _ => None,
         }
     }
+
+    /// Borrow this value as a boolean.
+    pub fn as_bool(&self) -> Option<bool> {
+        match self {
+            Json::Bool(b) => Some(*b),
+            _ => None,
+        }
+    }
+
+    /// Borrow this value as an array.
+    pub fn as_array(&self) -> Option<&[Json]> {
+        match self {
+            Json::Array(a) => Some(a),
+            _ => None,
+        }
+    }
+}
+
