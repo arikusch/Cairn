@@ -146,3 +146,21 @@ impl std::fmt::Display for ParseError {
     }
 }
 
+impl std::error::Error for ParseError {}
+
+/// Parse a JSON document into a [`Json`] value.
+pub fn parse(input: &str) -> Result<Json, ParseError> {
+    let mut p = Parser {
+        bytes: input.as_bytes(),
+        pos: 0,
+    };
+    p.skip_ws();
+    let value = p.parse_value()?;
+    p.skip_ws();
+    if p.pos != p.bytes.len() {
+        return Err(p.err("trailing characters after JSON value"));
+    }
+    Ok(value)
+}
+
+struct Parser<'a> {
