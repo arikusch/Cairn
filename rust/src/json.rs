@@ -217,3 +217,21 @@ impl<'a> Parser<'a> {
         let start = self.pos;
         while let Some(c) = self.peek() {
             if c.is_ascii_digit() {
+                self.pos += 1;
+            } else {
+                break;
+            }
+        }
+        let slice = &self.bytes[start..self.pos];
+        let text = std::str::from_utf8(slice).map_err(|_| self.err("invalid number"))?;
+        let n = text
+            .parse::<u64>()
+            .map_err(|_| self.err("number out of range"))?;
+        Ok(Json::Uint(n))
+    }
+
+    fn parse_string(&mut self) -> Result<String, ParseError> {
+        // Consume opening quote.
+        self.pos += 1;
+        let mut s = String::new();
+        loop {
