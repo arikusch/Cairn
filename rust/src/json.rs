@@ -181,3 +181,21 @@ impl<'a> Parser<'a> {
             match self.bytes[self.pos] {
                 b' ' | b'\t' | b'\n' | b'\r' => self.pos += 1,
                 _ => break,
+            }
+        }
+    }
+
+    fn peek(&self) -> Option<u8> {
+        self.bytes.get(self.pos).copied()
+    }
+
+    fn parse_value(&mut self) -> Result<Json, ParseError> {
+        self.skip_ws();
+        match self.peek() {
+            Some(b'"') => self.parse_string().map(Json::Str),
+            Some(b'{') => self.parse_object(),
+            Some(b'[') => self.parse_array(),
+            Some(b't') | Some(b'f') => self.parse_bool(),
+            Some(c) if c.is_ascii_digit() => self.parse_uint(),
+            _ => Err(self.err("expected a JSON value")),
+        }
