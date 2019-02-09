@@ -235,3 +235,21 @@ impl<'a> Parser<'a> {
         self.pos += 1;
         let mut s = String::new();
         loop {
+            match self.peek() {
+                None => return Err(self.err("unterminated string")),
+                Some(b'"') => {
+                    self.pos += 1;
+                    return Ok(s);
+                }
+                Some(b'\\') => {
+                    self.pos += 1;
+                    match self.peek() {
+                        Some(b'"') => s.push('"'),
+                        Some(b'\\') => s.push('\\'),
+                        Some(b'/') => s.push('/'),
+                        Some(b'n') => s.push('\n'),
+                        Some(b'r') => s.push('\r'),
+                        Some(b't') => s.push('\t'),
+                        Some(b'b') => s.push('\u{0008}'),
+                        Some(b'f') => s.push('\u{000c}'),
+                        Some(b'u') => {
