@@ -253,3 +253,21 @@ impl<'a> Parser<'a> {
                         Some(b'b') => s.push('\u{0008}'),
                         Some(b'f') => s.push('\u{000c}'),
                         Some(b'u') => {
+                            let cp = self.parse_unicode_escape()?;
+                            s.push(cp);
+                            // parse_unicode_escape leaves pos on last hex digit.
+                            continue;
+                        }
+                        _ => return Err(self.err("invalid escape sequence")),
+                    }
+                    self.pos += 1;
+                }
+                Some(_) => {
+                    // Copy one UTF-8 encoded char.
+                    let rest = &self.bytes[self.pos..];
+                    let ch_len = utf8_len(rest[0]);
+                    if self.pos + ch_len > self.bytes.len() {
+                        return Err(self.err("truncated UTF-8 sequence"));
+                    }
+                    let chunk = &rest[..ch_len];
+                    let text = std::str::from_utf8(chunk).map_err(|_| self.err("invalid UTF-8"))?;
