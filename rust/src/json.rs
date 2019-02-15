@@ -288,3 +288,21 @@ impl<'a> Parser<'a> {
         let cp = u32::from_str_radix(text, 16).map_err(|_| self.err("invalid \\u escape"))?;
         self.pos += 4; // move to last hex digit; caller advances one more.
         char::from_u32(cp).ok_or_else(|| self.err("invalid code point"))
+    }
+
+    fn parse_array(&mut self) -> Result<Json, ParseError> {
+        self.pos += 1; // consume '['
+        let mut items = Vec::new();
+        self.skip_ws();
+        if self.peek() == Some(b']') {
+            self.pos += 1;
+            return Ok(Json::Array(items));
+        }
+        loop {
+            let value = self.parse_value()?;
+            items.push(value);
+            self.skip_ws();
+            match self.peek() {
+                Some(b',') => {
+                    self.pos += 1;
+                }
