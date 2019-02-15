@@ -342,3 +342,21 @@ impl<'a> Parser<'a> {
                     self.pos += 1;
                 }
                 Some(b'}') => {
+                    self.pos += 1;
+                    return Ok(Json::Object(entries));
+                }
+                _ => return Err(self.err("expected ',' or '}' in object")),
+            }
+        }
+    }
+}
+
+/// Length in bytes of a UTF-8 sequence given its leading byte.
+fn utf8_len(lead: u8) -> usize {
+    if lead < 0x80 {
+        1
+    } else if lead >> 5 == 0b110 {
+        2
+    } else if lead >> 4 == 0b1110 {
+        3
+    } else {
