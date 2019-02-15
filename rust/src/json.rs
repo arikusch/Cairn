@@ -271,3 +271,20 @@ impl<'a> Parser<'a> {
                     }
                     let chunk = &rest[..ch_len];
                     let text = std::str::from_utf8(chunk).map_err(|_| self.err("invalid UTF-8"))?;
+                    s.push_str(text);
+                    self.pos += ch_len;
+                }
+            }
+        }
+    }
+
+    fn parse_unicode_escape(&mut self) -> Result<char, ParseError> {
+        // pos is on 'u'; four hex digits follow.
+        if self.pos + 4 >= self.bytes.len() {
+            return Err(self.err("truncated \\u escape"));
+        }
+        let hex = &self.bytes[self.pos + 1..self.pos + 5];
+        let text = std::str::from_utf8(hex).map_err(|_| self.err("invalid \\u escape"))?;
+        let cp = u32::from_str_radix(text, 16).map_err(|_| self.err("invalid \\u escape"))?;
+        self.pos += 4; // move to last hex digit; caller advances one more.
+        char::from_u32(cp).ok_or_else(|| self.err("invalid code point"))
