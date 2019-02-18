@@ -19,3 +19,9 @@ const (
 	fnvPrime       uint64 = 0x00000100000001b3
 )
 
+// Hasher is a streaming FNV-1a 64-bit hasher, matching rust/src/hash.rs.
+type Hasher struct {
+	state uint64
+}
+
+// NewHasher returns a hasher seeded with the FNV offset basis.
