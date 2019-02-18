@@ -25,3 +25,10 @@ type Hasher struct {
 }
 
 // NewHasher returns a hasher seeded with the FNV offset basis.
+func NewHasher() *Hasher {
+	return &Hasher{state: fnvOffsetBasis}
+}
+
+// Update absorbs bytes into the running digest.
+func (h *Hasher) Update(b []byte) {
+	state := h.state
