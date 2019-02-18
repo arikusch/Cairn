@@ -6,3 +6,9 @@
 // and restored by the Rust `cairn` binary and vice versa.
 //
 // Security note: FNV-1a is NOT cryptographic. See docs/FORMAT.md.
+package cache
+
+import (
+	"fmt"
+	"io"
+	"os"
