@@ -12,3 +12,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+)
+
+const (
+	fnvOffsetBasis uint64 = 0xcbf29ce484222325
+	fnvPrime       uint64 = 0x00000100000001b3
+)
+
