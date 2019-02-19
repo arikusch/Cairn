@@ -32,3 +32,9 @@ func NewHasher() *Hasher {
 // Update absorbs bytes into the running digest.
 func (h *Hasher) Update(b []byte) {
 	state := h.state
+	for _, c := range b {
+		state ^= uint64(c)
+		state *= fnvPrime
+	}
+	h.state = state
+}
