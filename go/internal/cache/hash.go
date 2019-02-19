@@ -38,3 +38,10 @@ func (h *Hasher) Update(b []byte) {
 	}
 	h.state = state
 }
+
+// Sum returns the raw 64-bit digest.
+func (h *Hasher) Sum() uint64 { return h.state }
+
+// Hex returns the canonical 16-char lowercase hex digest.
+func (h *Hasher) Hex() string { return fmt.Sprintf("%016x", h.state) }
+
