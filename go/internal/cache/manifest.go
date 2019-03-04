@@ -35,3 +35,15 @@ func ComputeKey(inputs []Entry, command []string) string {
 	h.Update([]byte("cairn-key\x00"))
 	h.Update([]byte(strconv.FormatUint(FormatVersion, 10)))
 	h.Update([]byte{0})
+	for _, in := range inputs {
+		h.Update([]byte(in.Path))
+		h.Update([]byte{0})
+		h.Update([]byte(in.Digest))
+		h.Update([]byte{0})
+		h.Update([]byte(strconv.FormatUint(in.Size, 10)))
+		h.Update([]byte{0})
+	}
+	h.Update([]byte("cmd\x00"))
+	for _, arg := range command {
+		h.Update([]byte(arg))
+		h.Update([]byte{0})
