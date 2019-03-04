@@ -47,3 +47,14 @@ func ComputeKey(inputs []Entry, command []string) string {
 	for _, arg := range command {
 		h.Update([]byte(arg))
 		h.Update([]byte{0})
+	}
+	return h.Hex()
+}
+
+// SortEntries sorts entries by path in place for deterministic keys.
+func SortEntries(entries []Entry) {
+	sort.Slice(entries, func(i, j int) bool { return entries[i].Path < entries[j].Path })
+}
+
+// NormalizePath converts backslashes to forward slashes for portable manifests.
+func NormalizePath(p string) string {
