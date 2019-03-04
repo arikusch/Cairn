@@ -58,3 +58,14 @@ func SortEntries(entries []Entry) {
 
 // NormalizePath converts backslashes to forward slashes for portable manifests.
 func NormalizePath(p string) string {
+	return strings.ReplaceAll(p, "\\", "/")
+}
+
+// ToJSON serializes the manifest to canonical, compact JSON with fields in the
+// exact order the Rust engine emits: version, producer, key, command, inputs,
+// outputs.
+func (m *Manifest) ToJSON() string {
+	var b strings.Builder
+	b.WriteByte('{')
+	writeKey(&b, "version")
+	b.WriteString(strconv.FormatUint(m.Version, 10))
