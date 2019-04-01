@@ -12,3 +12,8 @@ import (
 type wireManifest struct {
 	Version  uint64      `json:"version"`
 	Producer string      `json:"producer"`
+	Key      string      `json:"key"`
+	Command  []string    `json:"command"`
+	Inputs   []wireEntry `json:"inputs"`
+	Outputs  []wireEntry `json:"outputs"`
+}
