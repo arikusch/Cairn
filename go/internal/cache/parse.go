@@ -17,3 +17,7 @@ type wireManifest struct {
 	Inputs   []wireEntry `json:"inputs"`
 	Outputs  []wireEntry `json:"outputs"`
 }
+
+type wireEntry struct {
+	Path   string `json:"path"`
+	Digest string `json:"digest"`
