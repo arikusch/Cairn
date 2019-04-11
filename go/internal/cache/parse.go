@@ -21,3 +21,8 @@ type wireManifest struct {
 type wireEntry struct {
 	Path   string `json:"path"`
 	Digest string `json:"digest"`
+	Size   uint64 `json:"size"`
+}
+
+// ParseManifest decodes a manifest from JSON produced by either implementation.
+func ParseManifest(data []byte) (*Manifest, error) {
