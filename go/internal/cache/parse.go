@@ -26,3 +26,7 @@ type wireEntry struct {
 
 // ParseManifest decodes a manifest from JSON produced by either implementation.
 func ParseManifest(data []byte) (*Manifest, error) {
+	var w wireManifest
+	dec := json.NewDecoder(bytes.NewReader(data))
+	dec.DisallowUnknownFields()
+	if err := dec.Decode(&w); err != nil {
