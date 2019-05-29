@@ -60,3 +60,16 @@ func (s *Store) PutFile(path string) (string, uint64, error) {
 	if err != nil {
 		return "", 0, err
 	}
+	digest, err := s.PutBlob(content)
+	if err != nil {
+		return "", 0, err
+	}
+	return digest, uint64(len(content)), nil
+}
+
+// GetBlob reads a blob by digest.
+func (s *Store) GetBlob(digest string) ([]byte, error) {
+	return os.ReadFile(s.objectPath(digest))
+}
+
+// HasBlob reports whether a blob with the digest exists.
