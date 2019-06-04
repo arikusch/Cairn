@@ -87,3 +87,16 @@ func (s *Store) PutManifest(m *Manifest) error {
 	return atomicWrite(dest, []byte(m.ToJSON()))
 }
 
+// GetManifest loads a manifest by key, returning (nil, nil) on a cache miss.
+func (s *Store) GetManifest(key string) (*Manifest, error) {
+	path := s.manifestPath(key)
+	data, err := os.ReadFile(path)
+	if os.IsNotExist(err) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return ParseManifest(data)
+}
+
