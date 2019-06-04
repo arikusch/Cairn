@@ -73,3 +73,17 @@ func (s *Store) GetBlob(digest string) ([]byte, error) {
 }
 
 // HasBlob reports whether a blob with the digest exists.
+func (s *Store) HasBlob(digest string) bool {
+	_, err := os.Stat(s.objectPath(digest))
+	return err == nil
+}
+
+// PutManifest persists a manifest under its key using canonical JSON.
+func (s *Store) PutManifest(m *Manifest) error {
+	dest := s.manifestPath(m.Key)
+	if err := os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
+		return err
+	}
+	return atomicWrite(dest, []byte(m.ToJSON()))
+}
+
