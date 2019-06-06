@@ -114,3 +114,16 @@ func HashInputs(base string, paths []string) ([]Entry, error) {
 		if err != nil {
 			return nil, fmt.Errorf("hashing input %q: %w", p, err)
 		}
+		entries = append(entries, Entry{Path: NormalizePath(p), Digest: digest, Size: size})
+	}
+	SortEntries(entries)
+	return entries, nil
+}
+
+// StoreOutputs stores output files as blobs and returns sorted entries.
+func (s *Store) StoreOutputs(base string, paths []string) ([]Entry, error) {
+	entries := make([]Entry, 0, len(paths))
+	for _, p := range paths {
+		digest, size, err := s.PutFile(filepath.Join(base, p))
+		if err != nil {
+			return nil, fmt.Errorf("storing output %q: %w", p, err)
