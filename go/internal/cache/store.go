@@ -127,3 +127,17 @@ func (s *Store) StoreOutputs(base string, paths []string) ([]Entry, error) {
 		digest, size, err := s.PutFile(filepath.Join(base, p))
 		if err != nil {
 			return nil, fmt.Errorf("storing output %q: %w", p, err)
+		}
+		entries = append(entries, Entry{Path: NormalizePath(p), Digest: digest, Size: size})
+	}
+	SortEntries(entries)
+	return entries, nil
+}
+
+// RestoreOutputs writes all outputs from a manifest into base, returning the
+// count. Fails if any referenced blob is missing.
+func (s *Store) RestoreOutputs(base string, m *Manifest) (int, error) {
+	for _, o := range m.Outputs {
+		if !s.HasBlob(o.Digest) {
+			return 0, fmt.Errorf("missing blob %s for output %s", o.Digest, o.Path)
+		}
