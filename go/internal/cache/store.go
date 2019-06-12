@@ -141,3 +141,17 @@ func (s *Store) RestoreOutputs(base string, m *Manifest) (int, error) {
 		if !s.HasBlob(o.Digest) {
 			return 0, fmt.Errorf("missing blob %s for output %s", o.Digest, o.Path)
 		}
+	}
+	written := 0
+	for _, o := range m.Outputs {
+		content, err := s.GetBlob(o.Digest)
+		if err != nil {
+			return written, err
+		}
+		dest := filepath.Join(base, filepath.FromSlash(o.Path))
+		if err := os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
+			return written, err
+		}
+		if err := os.WriteFile(dest, content, 0o644); err != nil {
+			return written, err
+		}
