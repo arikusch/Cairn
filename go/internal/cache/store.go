@@ -155,3 +155,16 @@ func (s *Store) RestoreOutputs(base string, m *Manifest) (int, error) {
 		if err := os.WriteFile(dest, content, 0o644); err != nil {
 			return written, err
 		}
+		written++
+	}
+	return written, nil
+}
+
+// VerifyReport summarizes a manifest verification.
+type VerifyReport struct {
+	OK         int
+	Missing    []string
+	Corrupt    []string
+	KeyMatches bool
+}
+
