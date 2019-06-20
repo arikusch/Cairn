@@ -168,3 +168,17 @@ type VerifyReport struct {
 	KeyMatches bool
 }
 
+// Healthy reports whether nothing is missing/corrupt and the key checks out.
+func (r VerifyReport) Healthy() bool {
+	return len(r.Missing) == 0 && len(r.Corrupt) == 0 && r.KeyMatches
+}
+
+// VerifyManifest checks every referenced blob exists and re-hashes correctly,
+// and that the stored key matches the recomputed key.
+func (s *Store) VerifyManifest(m *Manifest) VerifyReport {
+	var r VerifyReport
+	for _, o := range m.Outputs {
+		content, err := s.GetBlob(o.Digest)
+		if err != nil {
+			r.Missing = append(r.Missing, o.Digest)
+			continue
