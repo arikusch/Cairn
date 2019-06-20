@@ -23,3 +23,17 @@ pub struct InputEntry {
     /// Size in bytes.
     pub size: u64,
 }
+
+/// A single captured output file.
+#[derive(Clone, Debug, PartialEq)]
+pub struct OutputEntry {
+    /// Logical path, using forward slashes.
+    pub path: String,
+    /// Content digest (canonical 16-char hex).
+    pub digest: String,
+    /// Size in bytes.
+    pub size: u64,
+}
+
+/// A complete cache manifest.
+#[derive(Clone, Debug, PartialEq)]
