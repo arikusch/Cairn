@@ -162,3 +162,17 @@ impl Manifest {
             .collect();
         let outputs = parse_entries(doc.get("outputs").ok_or("missing 'outputs'")?)?
             .into_iter()
+            .map(|(path, digest, size)| OutputEntry { path, digest, size })
+            .collect();
+        Ok(Manifest {
+            version,
+            producer,
+            key,
+            command,
+            inputs,
+            outputs,
+        })
+    }
+}
+
+fn parse_entries(value: &Json) -> Result<Vec<(String, String, u64)>, String> {
