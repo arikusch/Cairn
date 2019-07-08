@@ -176,3 +176,17 @@ impl Manifest {
 }
 
 fn parse_entries(value: &Json) -> Result<Vec<(String, String, u64)>, String> {
+    let arr = value.as_array().ok_or("expected array of entries")?;
+    let mut out = Vec::with_capacity(arr.len());
+    for entry in arr {
+        let path = entry
+            .get("path")
+            .and_then(Json::as_str)
+            .ok_or("entry missing 'path'")?
+            .to_string();
+        let digest = entry
+            .get("digest")
+            .and_then(Json::as_str)
+            .ok_or("entry missing 'digest'")?
+            .to_string();
+        let size = entry
