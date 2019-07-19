@@ -204,3 +204,17 @@ mod tests {
 
     fn sample() -> Manifest {
         let inputs = vec![
+            InputEntry {
+                path: "src/a.txt".into(),
+                digest: "af63dc4c8601ec8c".into(),
+                size: 1,
+            },
+            InputEntry {
+                path: "src/b.txt".into(),
+                digest: "85944171f73967e8".into(),
+                size: 6,
+            },
+        ];
+        let command = vec!["cc".to_string(), "-c".to_string()];
+        let key = Manifest::compute_key(&inputs, &command);
+        Manifest {
