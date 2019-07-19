@@ -190,3 +190,17 @@ fn parse_entries(value: &Json) -> Result<Vec<(String, String, u64)>, String> {
             .ok_or("entry missing 'digest'")?
             .to_string();
         let size = entry
+            .get("size")
+            .and_then(Json::as_uint)
+            .ok_or("entry missing 'size'")?;
+        out.push((path, digest, size));
+    }
+    Ok(out)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn sample() -> Manifest {
+        let inputs = vec![
