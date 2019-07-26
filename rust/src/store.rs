@@ -43,3 +43,18 @@ pub fn hash_file(path: &Path) -> std::io::Result<(String, u64)> {
 pub struct Store {
     root: PathBuf,
 }
+
+impl Store {
+    /// Open (creating if needed) a store at `root`.
+    pub fn open(root: impl Into<PathBuf>) -> std::io::Result<Store> {
+        let root = root.into();
+        fs::create_dir_all(root.join("objects"))?;
+        fs::create_dir_all(root.join("manifests"))?;
+        Ok(Store { root })
+    }
+
+    /// The path where a blob with the given digest lives.
+    fn object_path(&self, digest: &str) -> PathBuf {
+        let shard = &digest[..2.min(digest.len())];
+        self.root.join("objects").join(shard).join(digest)
+    }
