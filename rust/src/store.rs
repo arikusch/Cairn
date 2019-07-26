@@ -87,3 +87,17 @@ impl Store {
         fs::rename(&tmp, &dest)?;
         Ok(digest)
     }
+
+    /// Store a file's contents as a blob, returning digest and size.
+    pub fn put_file(&self, path: &Path) -> std::io::Result<(String, u64)> {
+        let content = fs::read(path)?;
+        let size = content.len() as u64;
+        let digest = self.put_blob(&content)?;
+        Ok((digest, size))
+    }
+
+    /// Read a blob by digest.
+    pub fn get_blob(&self, digest: &str) -> std::io::Result<Vec<u8>> {
+        fs::read(self.object_path(digest))
+    }
+
