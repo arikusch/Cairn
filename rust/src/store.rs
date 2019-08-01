@@ -101,3 +101,17 @@ impl Store {
         fs::read(self.object_path(digest))
     }
 
+    /// True if a blob with the given digest is present.
+    pub fn has_blob(&self, digest: &str) -> bool {
+        self.object_path(digest).exists()
+    }
+
+    /// Persist a manifest under its key.
+    pub fn put_manifest(&self, manifest: &Manifest) -> std::io::Result<()> {
+        let dest = self.manifest_path(&manifest.key);
+        if let Some(parent) = dest.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        let tmp = dest.with_extension("json.tmp");
+        {
+            let mut f = fs::File::create(&tmp)?;
