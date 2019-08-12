@@ -159,3 +159,17 @@ impl Store {
 
     /// Store output files as blobs and produce sorted output entries.
     pub fn store_outputs(
+        &self,
+        base: &Path,
+        paths: &[String],
+    ) -> std::io::Result<Vec<OutputEntry>> {
+        let mut entries = Vec::with_capacity(paths.len());
+        for p in paths {
+            let full = base.join(p);
+            let (digest, size) = self.put_file(&full)?;
+            entries.push(OutputEntry {
+                path: normalize_path(p),
+                digest,
+                size,
+            });
+        }
