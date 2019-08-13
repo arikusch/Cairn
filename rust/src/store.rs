@@ -202,3 +202,17 @@ impl Store {
     }
 
     /// Verify store integrity for a manifest: every referenced blob must exist
+    /// and re-hash to its recorded digest. Returns a report.
+    pub fn verify_manifest(&self, manifest: &Manifest) -> std::io::Result<VerifyReport> {
+        let mut report = VerifyReport::default();
+        for out in &manifest.outputs {
+            match self.get_blob(&out.digest) {
+                Ok(content) => {
+                    let mut h = Hasher::new();
+                    h.update(&content);
+                    if h.finalize_hex() == out.digest {
+                        report.ok += 1;
+                    } else {
+                        report.corrupt.push(out.digest.clone());
+                    }
+                }
