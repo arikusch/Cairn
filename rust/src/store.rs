@@ -187,3 +187,18 @@ impl Store {
                     format!("missing blob {} for output {}", out.digest, out.path),
                 ));
             }
+        }
+        let mut written = 0;
+        for out in &manifest.outputs {
+            let content = self.get_blob(&out.digest)?;
+            let dest = base.join(&out.path);
+            if let Some(parent) = dest.parent() {
+                fs::create_dir_all(parent)?;
+            }
+            fs::write(&dest, &content)?;
+            written += 1;
+        }
+        Ok(written)
+    }
+
+    /// Verify store integrity for a manifest: every referenced blob must exist
