@@ -245,3 +245,17 @@ impl VerifyReport {
         self.missing.is_empty() && self.corrupt.is_empty() && self.key_matches
     }
 }
+
+/// Normalize a path string to forward slashes for cross-platform manifests.
+pub fn normalize_path(p: &str) -> String {
+    p.replace('\\', "/")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::manifest::FORMAT_VERSION;
+
+    fn temp_dir(tag: &str) -> PathBuf {
+        let mut d = std::env::temp_dir();
+        let nanos = std::time::SystemTime::now()
