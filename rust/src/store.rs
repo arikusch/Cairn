@@ -259,3 +259,18 @@ mod tests {
     fn temp_dir(tag: &str) -> PathBuf {
         let mut d = std::env::temp_dir();
         let nanos = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        d.push(format!("cairn-test-{tag}-{nanos}"));
+        fs::create_dir_all(&d).unwrap();
+        d
+    }
+
+    #[test]
+    fn blob_roundtrip_and_dedup() {
+        let dir = temp_dir("blob");
+        let store = Store::open(dir.join("cache")).unwrap();
+        let d1 = store.put_blob(b"hello").unwrap();
+        let d2 = store.put_blob(b"hello").unwrap();
+        assert_eq!(d1, d2);
