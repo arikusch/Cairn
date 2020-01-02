@@ -25,3 +25,23 @@
 //	cairn-run version           print version
 package main
 
+import (
+	"errors"
+	"fmt"
+	"os"
+	"os/exec"
+	"strings"
+
+	"github.com/jfrost4/Cairn/go/internal/cache"
+)
+
+const (
+	version       = "5.1.0"
+	defaultCache  = ".cairn-cache"
+	producer      = "cairn-go"
+	exitError     = 1
+	exitCacheMiss = 2
+)
+
+type options struct {
+	cacheDir string
