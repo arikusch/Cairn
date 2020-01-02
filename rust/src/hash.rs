@@ -78,3 +78,17 @@ mod tests {
     #[test]
     fn known_vectors() {
         // Empty input hashes to the offset basis.
+        assert_eq!(hash_bytes(b""), "cbf29ce484222325");
+        // Well-known FNV-1a 64 test vector for "a".
+        assert_eq!(hash_bytes(b"a"), "af63dc4c8601ec8c");
+        // "foobar" is a classic FNV reference vector.
+        assert_eq!(hash_bytes(b"foobar"), "85944171f73967e8");
+    }
+
+    #[test]
+    fn streaming_matches_oneshot() {
+        let mut h = Hasher::new();
+        h.update(b"foo");
+        h.update(b"bar");
+        assert_eq!(h.finalize_hex(), hash_bytes(b"foobar"));
+    }
