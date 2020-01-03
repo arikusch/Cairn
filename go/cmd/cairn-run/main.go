@@ -106,3 +106,23 @@ func parseOptions(args []string) (options, error) {
 			}
 			opts.cacheDir = v
 		case "--base-dir":
+			v, err := takeValue(args, &i, a)
+			if err != nil {
+				return opts, err
+			}
+			opts.baseDir = v
+		case "--input", "-i":
+			v, err := takeValue(args, &i, a)
+			if err != nil {
+				return opts, err
+			}
+			opts.inputs = append(opts.inputs, v)
+		case "--output", "-o":
+			v, err := takeValue(args, &i, a)
+			if err != nil {
+				return opts, err
+			}
+			opts.outputs = append(opts.outputs, v)
+		case "--force":
+			opts.force = true
+		case "--verbose":
