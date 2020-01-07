@@ -146,3 +146,24 @@ func takeValue(args []string, i *int, flag string) (string, error) {
 	return args[*i], nil
 }
 
+// runWrapped implements the cache-aware execution flow and returns the process
+// exit code to propagate.
+func runWrapped(opts options) (int, error) {
+	store, err := cache.OpenStore(opts.cacheDir)
+	if err != nil {
+		return exitError, err
+	}
+	inputs, err := cache.HashInputs(opts.baseDir, opts.inputs)
+	if err != nil {
+		return exitError, err
+	}
+	key := cache.ComputeKey(inputs, opts.command)
+
+	if !opts.force {
+		manifest, err := store.GetManifest(key)
+		if err != nil {
+			return exitError, err
+		}
+		if manifest != nil {
+			n, err := store.RestoreOutputs(opts.baseDir, manifest)
+			if err == nil {
