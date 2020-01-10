@@ -187,3 +187,23 @@ func runWrapped(opts options) (int, error) {
 	// Cache miss (or forced): execute the command.
 	exitCode, err := execCommand(opts)
 	if err != nil {
+		return exitError, err
+	}
+	if exitCode != 0 {
+		// Do not cache failed builds.
+		if opts.verbose {
+			fmt.Fprintf(os.Stderr, "cairn-run: command exited %d; not caching\n", exitCode)
+		}
+		return exitCode, nil
+	}
+
+	outputs, err := store.StoreOutputs(opts.baseDir, opts.outputs)
+	if err != nil {
+		return exitError, err
+	}
+	manifest := &cache.Manifest{
+		Version:  cache.FormatVersion,
+		Producer: producer,
+		Key:      key,
+		Command:  opts.command,
+		Inputs:   inputs,
