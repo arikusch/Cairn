@@ -207,3 +207,23 @@ func runWrapped(opts options) (int, error) {
 		Key:      key,
 		Command:  opts.command,
 		Inputs:   inputs,
+		Outputs:  outputs,
+	}
+	if err := store.PutManifest(manifest); err != nil {
+		return exitError, err
+	}
+	if opts.verbose {
+		fmt.Fprintf(os.Stderr, "cairn-run: stored manifest %s (%d output(s))\n", key, len(outputs))
+	}
+	return 0, nil
+}
+
+func execCommand(opts options) (int, error) {
+	cmd := exec.Command(opts.command[0], opts.command[1:]...)
+	cmd.Dir = opts.baseDir
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err == nil {
+		return 0, nil
