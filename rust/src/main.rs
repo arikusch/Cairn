@@ -63,3 +63,21 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
 }
 
 /// A minimal flag parser tailored to Cairn's options. Recognizes repeated
+/// `--input`/`--output`, single-valued `--key`/`--cache-dir`/`--out-dir`, and
+/// a `--` separator after which everything is treated as a command.
+#[derive(Default)]
+struct Parsed {
+    inputs: Vec<String>,
+    outputs: Vec<String>,
+    key: Option<String>,
+    cache_dir: Option<String>,
+    out_dir: Option<String>,
+    base_dir: Option<String>,
+    command: Vec<String>,
+    positional: Vec<String>,
+}
+
+fn parse(args: &[String]) -> Result<Parsed, String> {
+    let mut p = Parsed::default();
+    let mut i = 0;
+    while i < args.len() {
