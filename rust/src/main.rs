@@ -44,3 +44,22 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
         "key" => cmd_key(rest),
         "store" => cmd_store(rest),
         "restore" => cmd_restore(rest),
+        "verify" => cmd_verify(rest),
+        "show" => cmd_show(rest),
+        "help" | "-h" | "--help" => {
+            print_usage();
+            Ok(ExitCode::SUCCESS)
+        }
+        "version" | "--version" | "-V" => {
+            println!(
+                "cairn {} (format v{})",
+                env!("CARGO_PKG_VERSION"),
+                FORMAT_VERSION
+            );
+            Ok(ExitCode::SUCCESS)
+        }
+        other => Err(format!("unknown subcommand '{other}' (try 'cairn help')")),
+    }
+}
+
+/// A minimal flag parser tailored to Cairn's options. Recognizes repeated
