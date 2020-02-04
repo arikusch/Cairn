@@ -81,3 +81,21 @@ fn parse(args: &[String]) -> Result<Parsed, String> {
     let mut p = Parsed::default();
     let mut i = 0;
     while i < args.len() {
+        let a = &args[i];
+        match a.as_str() {
+            "--" => {
+                p.command = args[i + 1..].to_vec();
+                break;
+            }
+            "--input" | "-i" => {
+                p.inputs.push(take_value(args, &mut i, a)?);
+            }
+            "--output" | "-o" => {
+                p.outputs.push(take_value(args, &mut i, a)?);
+            }
+            "--key" | "-k" => {
+                p.key = Some(take_value(args, &mut i, a)?);
+            }
+            "--cache-dir" => {
+                p.cache_dir = Some(take_value(args, &mut i, a)?);
+            }
