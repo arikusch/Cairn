@@ -135,3 +135,21 @@ fn base_dir(p: &Parsed) -> PathBuf {
 }
 
 fn cmd_hash(args: &[String]) -> Result<ExitCode, String> {
+    let p = parse(args)?;
+    let files = if p.positional.is_empty() {
+        &p.inputs
+    } else {
+        &p.positional
+    };
+    if files.is_empty() {
+        return Err("hash: expected one or more file paths".into());
+    }
+    for f in files {
+        let (digest, size) = hash_file(Path::new(f)).map_err(|e| format!("{f}: {e}"))?;
+        println!("{digest}  {size:>10}  {f}");
+    }
+    Ok(ExitCode::SUCCESS)
+}
+
+fn cmd_key(args: &[String]) -> Result<ExitCode, String> {
+    let p = parse(args)?;
