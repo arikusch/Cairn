@@ -117,3 +117,21 @@ fn parse(args: &[String]) -> Result<Parsed, String> {
 
 fn take_value(args: &[String], i: &mut usize, flag: &str) -> Result<String, String> {
     *i += 1;
+    args.get(*i)
+        .cloned()
+        .ok_or_else(|| format!("flag '{flag}' requires a value"))
+}
+
+fn cache_root(p: &Parsed) -> PathBuf {
+    PathBuf::from(
+        p.cache_dir
+            .clone()
+            .unwrap_or_else(|| DEFAULT_CACHE.to_string()),
+    )
+}
+
+fn base_dir(p: &Parsed) -> PathBuf {
+    PathBuf::from(p.base_dir.clone().unwrap_or_else(|| ".".to_string()))
+}
+
+fn cmd_hash(args: &[String]) -> Result<ExitCode, String> {
