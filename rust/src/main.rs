@@ -190,3 +190,21 @@ fn cmd_store(args: &[String]) -> Result<ExitCode, String> {
         producer: PRODUCER.to_string(),
         key: key.clone(),
         command: p.command.clone(),
+        inputs,
+        outputs,
+    };
+    store.put_manifest(&manifest).map_err(|e| e.to_string())?;
+    println!("stored {} (outputs: {})", key, manifest.outputs.len());
+    Ok(ExitCode::SUCCESS)
+}
+
+fn cmd_restore(args: &[String]) -> Result<ExitCode, String> {
+    let p = parse(args)?;
+    let key = p.key.clone().ok_or("restore: --key is required")?;
+    let store = Store::open(cache_root(&p)).map_err(|e| e.to_string())?;
+    let Some(manifest) = store.get_manifest(&key).map_err(|e| e.to_string())? else {
+        eprintln!("cairn: cache miss for key {key}");
+        return Ok(ExitCode::from(2));
+    };
+    let out_dir = PathBuf::from(p.out_dir.clone().unwrap_or_else(|| ".".to_string()));
+    let n = store
