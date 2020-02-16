@@ -226,3 +226,21 @@ fn cmd_verify(args: &[String]) -> Result<ExitCode, String> {
         .map_err(|e| e.to_string())?;
     println!(
         "key {key}: {} ok, {} missing, {} corrupt, key_matches={}",
+        report.ok,
+        report.missing.len(),
+        report.corrupt.len(),
+        report.key_matches
+    );
+    for m in &report.missing {
+        println!("  MISSING {m}");
+    }
+    for c in &report.corrupt {
+        println!("  CORRUPT {c}");
+    }
+    if report.is_healthy() {
+        println!("OK: cache is healthy");
+        Ok(ExitCode::SUCCESS)
+    } else {
+        eprintln!("FAIL: cache integrity check failed");
+        Ok(ExitCode::from(3))
+    }
