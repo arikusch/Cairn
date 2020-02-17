@@ -9,3 +9,9 @@ $here  = Split-Path -Parent $PSScriptRoot
 $cairn = Join-Path $here 'rust\target\release\cairn.exe'
 $run   = Join-Path $here 'bin\cairn-run.exe'
 
+Write-Host '==> Building Rust engine'
+Push-Location (Join-Path $here 'rust'); cargo build --release | Out-Null; Pop-Location
+Write-Host '==> Building Go wrapper'
+New-Item -ItemType Directory -Force -Path (Join-Path $here 'bin') | Out-Null
+Push-Location (Join-Path $here 'go'); go build -o $run ./cmd/cairn-run; Pop-Location
+
