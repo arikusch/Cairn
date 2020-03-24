@@ -25,3 +25,11 @@ fi
 
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
+cd "$work"
+
+echo
+echo "==> Create a source input"
+printf 'greetings from cairn' > input.txt
+"$cairn" hash input.txt
+
+echo
