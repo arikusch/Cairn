@@ -18,3 +18,10 @@ echo "==> Building Go wrapper"
 mkdir -p "$here/bin"
 (cd "$here/go" && go build -o "$run" ./cmd/cairn-run)
 
+# Ext for Windows.
+if [[ "${OS:-}" == "Windows_NT" ]]; then
+  cairn="$cairn.exe"; run="$run.exe"
+fi
+
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
