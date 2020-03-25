@@ -33,3 +33,10 @@ printf 'greetings from cairn' > input.txt
 "$cairn" hash input.txt
 
 echo
+echo "==> First run (expect cache MISS, command executes)"
+"$run" --verbose --input input.txt --output output.txt -- \
+  sh -c 'tr a-z A-Z < input.txt > output.txt'
+echo "output.txt: $(cat output.txt)"
+
+echo
+echo "==> Delete output, run again (expect cache HIT, command skipped)"
