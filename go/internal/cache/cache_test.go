@@ -37,3 +37,15 @@ func TestManifestCanonicalJSON(t *testing.T) {
 		{Path: "src/a.txt", Digest: "af63dc4c8601ec8c", Size: 1},
 		{Path: "src/b.txt", Digest: "85944171f73967e8", Size: 6},
 	}
+	command := []string{"cc", "-c"}
+	key := ComputeKey(inputs, command)
+	m := &Manifest{
+		Version:  FormatVersion,
+		Producer: "cairn-rust",
+		Key:      key,
+		Command:  command,
+		Inputs:   inputs,
+		Outputs: []Entry{
+			{Path: "out/a.o", Digest: "cbf29ce484222325", Size: 0},
+		},
+	}
