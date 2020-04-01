@@ -49,3 +49,16 @@ func TestManifestCanonicalJSON(t *testing.T) {
 			{Path: "out/a.o", Digest: "cbf29ce484222325", Size: 0},
 		},
 	}
+	got := m.ToJSON()
+
+	// Parse it back and re-encode to confirm stability.
+	parsed, err := ParseManifest([]byte(got))
+	if err != nil {
+		t.Fatalf("ParseManifest failed: %v", err)
+	}
+	if again := parsed.ToJSON(); again != got {
+		t.Errorf("re-encoded JSON differs:\n first: %s\nsecond: %s", got, again)
+	}
+}
+
+func TestKeyStableAndCommandSensitive(t *testing.T) {
