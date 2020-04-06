@@ -100,3 +100,16 @@ func TestStoreRestoreVerify(t *testing.T) {
 	outputs, err := store.StoreOutputs(work, []string{"out.txt"})
 	if err != nil {
 		t.Fatal(err)
+	}
+	m := &Manifest{
+		Version:  FormatVersion,
+		Producer: producerTag,
+		Key:      key,
+		Command:  command,
+		Inputs:   inputs,
+		Outputs:  outputs,
+	}
+	if err := store.PutManifest(m); err != nil {
+		t.Fatal(err)
+	}
+
