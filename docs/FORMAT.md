@@ -46,3 +46,14 @@ that, layer a signed manifest or a cryptographic digest on top.
 ## 2. Cache key
 
 A cache key identifies a logical build step. It is the FNV-1a canonical digest
+of the following byte stream, where `\x00` is a single NUL byte:
+
+```
+"cairn-key\x00"
+<format-version-decimal> "\x00"
+for each input entry, sorted ascending by path:
+    <path>   "\x00"
+    <digest> "\x00"
+    <size-decimal> "\x00"
+"cmd\x00"
+for each command argument, in order:
