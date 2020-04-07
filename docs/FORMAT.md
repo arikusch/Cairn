@@ -34,3 +34,15 @@ Both implementations assert these vectors in their unit tests.
 FNV-1a is **not** a cryptographic hash. It has no collision resistance or
 pre-image resistance against a deliberate attacker. Cairn is a build cache, not
 a security boundary. FNV-1a was chosen because it is:
+
+- **Deterministic** across platforms, architectures, and languages.
+- **Dependency-free** — expressible in a few lines in any language.
+- **Fast** and adequate for detecting *accidental* change (the actual job of a
+  build cache).
+
+Do not use Cairn digests to defend against malicious tampering. If you need
+that, layer a signed manifest or a cryptographic digest on top.
+
+## 2. Cache key
+
+A cache key identifies a logical build step. It is the FNV-1a canonical digest
