@@ -23,3 +23,14 @@ lowercase, 16-character hexadecimal string (`%016x`).
 
 | Input      | Canonical digest     |
 | ---------- | -------------------- |
+| `""`       | `cbf29ce484222325`   |
+| `"a"`      | `af63dc4c8601ec8c`   |
+| `"foobar"` | `85944171f73967e8`   |
+
+Both implementations assert these vectors in their unit tests.
+
+### ⚠️ Non-cryptographic
+
+FNV-1a is **not** a cryptographic hash. It has no collision resistance or
+pre-image resistance against a deliberate attacker. Cairn is a build cache, not
+a security boundary. FNV-1a was chosen because it is:
