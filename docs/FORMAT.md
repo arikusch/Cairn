@@ -92,3 +92,14 @@ Field semantics:
 
 | Field      | Type              | Meaning                                              |
 | ---------- | ----------------- | ---------------------------------------------------- |
+| `version`  | unsigned integer  | Format version; currently `1`.                       |
+| `producer` | string            | Tool that wrote it: `cairn-rust` or `cairn-go`.      |
+| `key`      | string            | The cache key (§2).                                  |
+| `command`  | array of strings  | The command line (may be empty for pure hashing).    |
+| `inputs`   | array of entries  | Hashed inputs, sorted by `path`.                     |
+| `outputs`  | array of entries  | Captured outputs, sorted by `path`.                  |
+
+An **entry** is an object with keys `path` (string), `digest` (string), and
+`size` (unsigned integer), in that order.
+
+String escaping follows RFC 8259: `"`, `\`, `\n`, `\r`, `\t` use short escapes;
