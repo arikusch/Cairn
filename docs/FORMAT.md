@@ -80,3 +80,15 @@ insignificant whitespace) with keys in the fixed order below.
   "key": "6021f3a455f5af1f",
   "command": ["cc", "-c", "main.c", "-o", "main.o"],
   "inputs": [
+    {"path": "main.c", "digest": "af63dc4c8601ec8c", "size": 123}
+  ],
+  "outputs": [
+    {"path": "main.o", "digest": "85944171f73967e8", "size": 456}
+  ]
+}
+```
+
+Field semantics:
+
+| Field      | Type              | Meaning                                              |
+| ---------- | ----------------- | ---------------------------------------------------- |
