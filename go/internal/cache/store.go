@@ -182,3 +182,33 @@ func (s *Store) VerifyManifest(m *Manifest) VerifyReport {
 		if err != nil {
 			r.Missing = append(r.Missing, o.Digest)
 			continue
+		}
+		if HashBytes(content) == o.Digest {
+			r.OK++
+		} else {
+			r.Corrupt = append(r.Corrupt, o.Digest)
+		}
+	}
+	r.KeyMatches = ComputeKey(m.Inputs, m.Command) == m.Key
+	return r
+}
+
+// atomicWrite writes to a temp file and renames into place.
+func atomicWrite(dest string, content []byte) error {
+	tmp := dest + ".tmp"
+	f, err := os.Create(tmp)
+	if err != nil {
+		return err
+	}
+	if _, err := f.Write(content); err != nil {
+		f.Close()
+		return err
+	}
+	if err := f.Sync(); err != nil {
+		f.Close()
+		return err
+	}
+	if err := f.Close(); err != nil {
+		return err
+	}
+	return os.Rename(tmp, dest)
