@@ -18,3 +18,9 @@
       .head  { fill:#f4ede0; font-size:12px; letter-spacing:1px; }
       @media (prefers-reduced-motion: reduce){
         .ln,.cur,.bar1,.bar2{ animation:none !important; opacity:1 !important; }
+      }
+      .ln{ opacity:0; animation:show .01s linear forwards; }
+      .l1{animation-delay:.3s} .l2{animation-delay:.9s} .l3{animation-delay:1.5s}
+      .l4{animation-delay:2.4s} .l5{animation-delay:3.0s} .l6{animation-delay:3.6s}
+      @keyframes show{to{opacity:1}}
+      .cur{ animation:blink 1s step-end infinite; }
