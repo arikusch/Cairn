@@ -12,3 +12,9 @@
       .txt   { fill:#e6eaef; font-size:13px; }
       .dim   { fill:#8b9099; font-size:13px; }
       .amber { fill:#d9a441; font-size:13px; }
+      .ice   { fill:#8fd0e8; font-size:13px; }
+      .miss  { fill:#e0975a; font-size:13px; font-weight:bold; }
+      .hit   { fill:#7fc9a0; font-size:13px; font-weight:bold; }
+      .head  { fill:#f4ede0; font-size:12px; letter-spacing:1px; }
+      @media (prefers-reduced-motion: reduce){
+        .ln,.cur,.bar1,.bar2{ animation:none !important; opacity:1 !important; }
