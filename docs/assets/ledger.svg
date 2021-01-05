@@ -24,3 +24,10 @@
       .l4{animation-delay:2.4s} .l5{animation-delay:3.0s} .l6{animation-delay:3.6s}
       @keyframes show{to{opacity:1}}
       .cur{ animation:blink 1s step-end infinite; }
+      @keyframes blink{50%{opacity:0}}
+      .bar1{ transform:scaleX(0); transform-origin:left; animation:grow1 1.2s ease-out 2s forwards; }
+      .bar2{ transform:scaleX(0); transform-origin:left; animation:grow2 1s ease-out 3.8s forwards; }
+      @keyframes grow1{to{transform:scaleX(1)}}
+      @keyframes grow2{to{transform:scaleX(.06)}}
+    </style>
+  </defs>
