@@ -31,3 +31,9 @@
       @keyframes grow2{to{transform:scaleX(.06)}}
     </style>
   </defs>
+
+  <!-- terminal window -->
+  <rect x="20" y="20" width="500" height="360" rx="8" fill="url(#term)" stroke="#4a4f56"/>
+  <rect x="20" y="20" width="500" height="28" rx="8" class="chrome"/>
+  <circle cx="40" cy="34" r="5" fill="#d9a441"/>
+  <circle cx="58" cy="34" r="5" fill="#8b9099"/>
