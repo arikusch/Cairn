@@ -37,3 +37,10 @@
   <rect x="20" y="20" width="500" height="28" rx="8" class="chrome"/>
   <circle cx="40" cy="34" r="5" fill="#d9a441"/>
   <circle cx="58" cy="34" r="5" fill="#8b9099"/>
+  <circle cx="76" cy="34" r="5" fill="#8fd0e8"/>
+  <text x="260" y="38" text-anchor="middle" class="dim" font-size="11">cairn-run: field session</text>
+
+  <text x="38" y="76"  class="ln l1"><tspan class="amber">$</tspan> <tspan class="txt">cairn-run --verbose \</tspan></text>
+  <text x="38" y="96"  class="ln l1"><tspan class="dim">    --input src.c --output a.o -- cc -c src.c</tspan></text>
+  <text x="38" y="122" class="ln l2"><tspan class="miss">cache MISS</tspan> <tspan class="txt">3c9e2f1a55b0d7e4</tspan></text>
+  <text x="38" y="142" class="ln l3"><tspan class="dim">stored manifest 3c9e2f1a55b0d7e4 (1 output)</tspan></text>
