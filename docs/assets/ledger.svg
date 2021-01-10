@@ -44,3 +44,9 @@
   <text x="38" y="96"  class="ln l1"><tspan class="dim">    --input src.c --output a.o -- cc -c src.c</tspan></text>
   <text x="38" y="122" class="ln l2"><tspan class="miss">cache MISS</tspan> <tspan class="txt">3c9e2f1a55b0d7e4</tspan></text>
   <text x="38" y="142" class="ln l3"><tspan class="dim">stored manifest 3c9e2f1a55b0d7e4 (1 output)</tspan></text>
+
+  <text x="38" y="186" class="ln l4"><tspan class="amber">$</tspan> <tspan class="txt">rm a.o &amp;&amp; cairn-run --verbose \</tspan></text>
+  <text x="38" y="206" class="ln l4"><tspan class="dim">    --input src.c --output a.o -- cc -c src.c</tspan></text>
+  <text x="38" y="232" class="ln l5"><tspan class="hit">cache HIT</tspan> <tspan class="txt">3c9e2f1a55b0d7e4 (restored 1)</tspan></text>
+
+  <text x="38" y="276" class="ln l6"><tspan class="amber">$</tspan> <tspan class="txt">cairn verify --key 3c9e2f1a55b0d7e4</tspan></text>
