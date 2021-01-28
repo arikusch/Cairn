@@ -25,3 +25,12 @@
     </linearGradient>
     <style>
       .lbl   { fill:#f4ede0; font-size:12px; letter-spacing:.5px; }
+      .dig   { fill:#8fd0e8; font-size:11px; letter-spacing:1px; }
+      .cap   { fill:#2b2f34; font-size:13px; }
+      .sub   { fill:#5b6068; font-size:11px; }
+      .blob  { fill:#f4ede0; stroke:#8a5a16; stroke-width:1.2; }
+      .icy   { fill:#8fd0e8; }
+      @media (prefers-reduced-motion: reduce){
+        .drop{ animation:none !important; }
+      }
+      .drop{ animation:fall 6s cubic-bezier(.5,0,.6,1) infinite; }
