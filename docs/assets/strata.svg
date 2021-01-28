@@ -7,3 +7,12 @@
       <stop offset="0" stop-color="#e8f1f5"/>
       <stop offset="1" stop-color="#cfe1e8"/>
     </linearGradient>
+    <linearGradient id="rock1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9a441"/>
+      <stop offset="1" stop-color="#c68a2e"/>
+    </linearGradient>
+    <linearGradient id="rock2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b8791f"/>
+      <stop offset="1" stop-color="#9c6318"/>
+    </linearGradient>
+    <linearGradient id="rock3" x1="0" y1="0" x2="0" y2="1">
