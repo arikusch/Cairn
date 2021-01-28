@@ -56,3 +56,10 @@
 
   <!-- ledger panel -->
   <rect x="540" y="20" width="260" height="360" rx="8" fill="#f4ede0" stroke="#c68a2e"/>
+  <rect x="540" y="20" width="260" height="30" rx="8" fill="#d9a441"/>
+  <text x="670" y="40" text-anchor="middle" class="head" fill="#3f2f10">PERFORMANCE LEDGER</text>
+
+  <text x="560" y="78"  class="dim" fill="#6b5a34" font-size="11">EVENT</text>
+  <text x="760" y="78"  text-anchor="end" class="dim" fill="#6b5a34" font-size="11">RELATIVE COST</text>
+  <line x1="560" y1="86" x2="780" y2="86" stroke="#c68a2e" stroke-width="1"/>
+
