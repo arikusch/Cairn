@@ -16,3 +16,12 @@
       <stop offset="1" stop-color="#9c6318"/>
     </linearGradient>
     <linearGradient id="rock3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b5f66"/>
+      <stop offset="1" stop-color="#3f4349"/>
+    </linearGradient>
+    <linearGradient id="rock4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#33373d"/>
+      <stop offset="1" stop-color="#24272c"/>
+    </linearGradient>
+    <style>
+      .lbl   { fill:#f4ede0; font-size:12px; letter-spacing:.5px; }
