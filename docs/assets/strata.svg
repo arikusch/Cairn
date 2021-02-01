@@ -34,3 +34,12 @@
         .drop{ animation:none !important; }
       }
       .drop{ animation:fall 6s cubic-bezier(.5,0,.6,1) infinite; }
+      .d2{ animation-delay:2s; }
+      .d3{ animation-delay:4s; }
+      @keyframes fall{
+        0%   { transform:translateY(0);   opacity:0; }
+        8%   { opacity:1; }
+        45%  { transform:translateY(150px); opacity:1; }
+        60%  { transform:translateY(168px); opacity:1; }
+        62%  { transform:translateY(160px); }
+        70%  { transform:translateY(168px); opacity:.9; }
