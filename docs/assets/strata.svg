@@ -43,3 +43,12 @@
         60%  { transform:translateY(168px); opacity:1; }
         62%  { transform:translateY(160px); }
         70%  { transform:translateY(168px); opacity:.9; }
+        100% { transform:translateY(168px); opacity:0; }
+      }
+      .pulse{ animation:glow 3.2s ease-in-out infinite; }
+      @keyframes glow{ 0%,100%{opacity:.35} 50%{opacity:1} }
+    </style>
+  </defs>
+
+  <!-- sky / surface -->
+  <rect x="0" y="0" width="880" height="120" fill="url(#sky)"/>
