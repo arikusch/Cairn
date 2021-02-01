@@ -61,3 +61,12 @@
     <text x="150" y="87" text-anchor="middle" class="cap" font-size="11">main.o</text>
   </g>
   <g class="drop d2">
+    <rect class="blob" x="410" y="70" width="70" height="26" rx="3"/>
+    <text x="445" y="87" text-anchor="middle" class="cap" font-size="11">bundle.js</text>
+  </g>
+  <g class="drop d3">
+    <rect class="blob" x="700" y="70" width="64" height="26" rx="3"/>
+    <text x="732" y="87" text-anchor="middle" class="cap" font-size="11">app.wasm</text>
+  </g>
+
+  <!-- strata -->
