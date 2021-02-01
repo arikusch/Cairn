@@ -52,3 +52,12 @@
 
   <!-- sky / surface -->
   <rect x="0" y="0" width="880" height="120" fill="url(#sky)"/>
+  <text x="28" y="34" class="cap">field section: .cairn-cache/</text>
+  <text x="28" y="54" class="sub">artifacts settle by content address; identical bytes share one seam</text>
+
+  <!-- falling artifacts -->
+  <g class="drop">
+    <rect class="blob" x="120" y="70" width="60" height="26" rx="3"/>
+    <text x="150" y="87" text-anchor="middle" class="cap" font-size="11">main.o</text>
+  </g>
+  <g class="drop d2">
