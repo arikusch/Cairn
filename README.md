@@ -408,4 +408,4 @@ the contract.
 MIT — see [LICENSE](LICENSE). Normative format spec:
 [`docs/FORMAT.md`](docs/FORMAT.md). Change history: [`CHANGELOG.md`](CHANGELOG.md).
 
-<!-- draft note 294 -->
+<!-- draft note 295 -->
