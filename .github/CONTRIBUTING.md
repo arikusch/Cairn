@@ -17,3 +17,10 @@ can be merged:
    implementations, must be reflected in `docs/FORMAT.md`, and must keep the
    cross-language reference vectors in both test suites passing. The two
    tools are interchangeable at the format boundary; drift is a bug.
+
+## Getting set up
+
+You need a Rust toolchain (1.70+) and Go (1.21+; the module targets 1.24).
+
+```bash
+make build     # rust/target/release/cairn and bin/cairn-run
