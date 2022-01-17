@@ -37,3 +37,10 @@ cd go && gofmt -l . && go vet ./... && go test ./...
 ```
 
 ## What makes a good pull request
+
+- One topic per pull request. A bug fix and a refactor are two pull
+  requests.
+- Conventional commit subjects (`fix:`, `feat:`, `docs:`, `test:`,
+  `build:`); the body explains *why*, not what.
+- Tests. A behavior change without a test that would have failed before is
+  incomplete. Cross-language behavior needs vectors on both sides.
