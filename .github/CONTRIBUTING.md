@@ -31,3 +31,9 @@ make demo      # build everything, then run examples/demo.sh
 Run the full suite before opening a pull request:
 
 ```bash
+cd rust && cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test
+cd go && gofmt -l . && go vet ./... && go test ./...
+./examples/demo.sh
+```
+
+## What makes a good pull request
