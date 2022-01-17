@@ -24,3 +24,10 @@ You need a Rust toolchain (1.70+) and Go (1.21+; the module targets 1.24).
 
 ```bash
 make build     # rust/target/release/cairn and bin/cairn-run
+make test      # cargo test + go test ./...
+make demo      # build everything, then run examples/demo.sh
+```
+
+Run the full suite before opening a pull request:
+
+```bash
