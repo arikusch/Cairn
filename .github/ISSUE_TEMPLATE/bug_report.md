@@ -12,3 +12,9 @@ A clear description of the bug.
 
 **Command and output**
 
+The exact command you ran and the full output (add `--verbose` for
+`cairn-run`):
+
+```console
+$ cairn ...
+```
