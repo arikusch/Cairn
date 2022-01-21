@@ -7,3 +7,8 @@ assignees: ""
 ---
 
 **What happened**
+
+A clear description of the bug.
+
+**Command and output**
+
