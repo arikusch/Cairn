@@ -44,3 +44,10 @@ cd go && gofmt -l . && go vet ./... && go test ./...
   `build:`); the body explains *why*, not what.
 - Tests. A behavior change without a test that would have failed before is
   incomplete. Cross-language behavior needs vectors on both sides.
+- Format changes bump the format version and update `docs/FORMAT.md`,
+  `README.md`'s key anatomy, and the reference-vector table together.
+- Keep the demo scripts (`examples/demo.sh`, `examples/demo.ps1`) working on
+  a clean checkout; CI runs the shell one on every push.
+
+## Reporting bugs
+
