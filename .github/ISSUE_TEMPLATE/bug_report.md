@@ -18,3 +18,8 @@ The exact command you ran and the full output (add `--verbose` for
 ```console
 $ cairn ...
 ```
+
+**Expected behavior**
+
+What you expected instead.
+
