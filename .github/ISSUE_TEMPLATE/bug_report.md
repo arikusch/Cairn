@@ -23,3 +23,9 @@ $ cairn ...
 
 What you expected instead.
 
+**Environment**
+
+- `cairn version` / `cairn-run version`:
+- OS and architecture:
+- Toolchains (if you built from source): `rustc --version`, `go version`
+
