@@ -3,3 +3,4 @@ contact_links:
   - name: Security report
     url: https://github.com/jfrost4/Cairn/security/advisories/new
     about: Please report security concerns privately, not as public issues.
+  - name: Format specification
