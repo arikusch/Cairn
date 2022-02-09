@@ -14,3 +14,7 @@ three toolchains in one pipeline and want one shared cache for all of them."
 **What you have tried**
 
 Any workaround you are using today (wrapping scripts, separate cache dirs,
+CI cache keys, ...).
+
+**Proposed behavior**
+
