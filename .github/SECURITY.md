@@ -16,3 +16,8 @@ release line only.
 ## Reporting a vulnerability
 
 Please **do not** open a public issue for a security concern. Use GitHub's
+private vulnerability reporting:
+
+1. Go to the repository's **Security** tab.
+2. Click **Report a vulnerability**.
+3. Describe the issue, the affected version, and a reproduction if you have
