@@ -11,3 +11,8 @@ release line only.
 | 4.x     | :x:                |
 | 3.x     | :x:                |
 | 2.x     | :x:                |
+| < 1.0   | :x:                |
+
+## Reporting a vulnerability
+
+Please **do not** open a public issue for a security concern. Use GitHub's
