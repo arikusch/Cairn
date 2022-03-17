@@ -21,3 +21,8 @@ private vulnerability reporting:
 1. Go to the repository's **Security** tab.
 2. Click **Report a vulnerability**.
 3. Describe the issue, the affected version, and a reproduction if you have
+   one.
+
+You can expect an acknowledgement within a few days. If the report is
+accepted, a fix and a coordinated disclosure will follow; credit is given in
+the release notes unless you prefer otherwise.
