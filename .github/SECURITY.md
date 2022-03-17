@@ -26,3 +26,7 @@ private vulnerability reporting:
 You can expect an acknowledgement within a few days. If the report is
 accepted, a fix and a coordinated disclosure will follow; credit is given in
 the release notes unless you prefer otherwise.
+
+## Scope note: the hash is not a security boundary
+
+Cairn addresses content with the 64-bit FNV-1a hash. It has **no collision
