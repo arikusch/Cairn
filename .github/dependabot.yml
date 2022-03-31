@@ -7,3 +7,4 @@ updates:
   - package-ecosystem: gomod
     directory: "/go"
     schedule:
+      interval: weekly
