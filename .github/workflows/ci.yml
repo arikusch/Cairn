@@ -43,3 +43,11 @@ jobs:
         run: go vet ./...
       - name: Gofmt check
         run: test -z "$(gofmt -l .)"
+      - name: Test
+        run: go test ./...
+      - name: Build
+        run: go build ./...
+
+  interop:
+    name: Cross-language interop
+    runs-on: ubuntu-latest
