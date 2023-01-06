@@ -115,3 +115,25 @@ Relative to the cache root (default `.cairn-cache`):
   manifests/<key>.json        canonical manifest, one file per key
 ```
 
+- Blobs are content-addressed and therefore automatically deduplicated: two
+  outputs with identical bytes share one blob.
+- Writes are atomic: content is written to a `.tmp` sibling and renamed into
+  place.
+
+## 5. Verification
+
+Verifying a key means:
+
+1. Every output blob referenced by the manifest exists.
+2. Each blob re-hashes to its recorded digest (detects accidental corruption).
+3. Recomputing the key (§2) from the manifest's inputs and command equals the
+   stored `key` (detects manifest tampering with the index).
+
+A cache is *healthy* for a key when all three hold.
+
+## 6. Compatibility guarantees
+
+- The two implementations produce **byte-identical** manifests for the same
+  logical entry.
+- Either tool can restore and verify a manifest written by the other.
+- New format versions bump `version`; readers should reject versions they do
