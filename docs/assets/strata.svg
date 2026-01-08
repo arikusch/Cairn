@@ -79,3 +79,22 @@
     <rect x="0" y="186" width="880" height="66" fill="url(#rock2)"/>
     <text x="28" y="216" class="lbl">objects/85/: packed sediment</text>
     <text x="620" y="216" class="dig pulse">85944171f73967e8</text>
+
+    <rect x="0" y="252" width="880" height="72" fill="url(#rock3)"/>
+    <text x="28" y="284" class="lbl" fill="#e6eaef">manifests/: index bedrock</text>
+    <text x="600" y="284" class="dig pulse">key 8c165ae10d5fa0a2</text>
+
+    <rect x="0" y="324" width="880" height="96" fill="url(#rock4)"/>
+    <text x="28" y="356" class="lbl" fill="#c9ced4">FNV-1a offset basis: cbf29ce484222325</text>
+    <text x="28" y="378" class="sub" fill="#8b9099">deterministic · dependency-free · non-cryptographic</text>
+  </g>
+
+  <!-- seam ties: manifest references blobs -->
+  <g stroke="#8fd0e8" stroke-width="1.4" fill="none" opacity=".8" stroke-dasharray="3 4">
+    <path d="M300,280 C360,250 520,180 700,150"/>
+    <path d="M300,282 C380,262 560,232 700,216"/>
+  </g>
+  <circle cx="300" cy="281" r="4" class="icy"/>
+</svg>
+
+<!-- draft note 1038 -->
