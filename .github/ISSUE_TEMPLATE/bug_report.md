@@ -29,3 +29,14 @@ What you expected instead.
 - OS and architecture:
 - Toolchains (if you built from source): `rustc --version`, `go version`
 
+**Cache state (if relevant)**
+
+If the issue involves a specific key, paste the output of
+`cairn show --key <key>` and the contents of your `.cairn-cache/` tree
+(`find .cairn-cache -maxdepth 2`).
+
+**Reproduction**
+
+Minimal steps to reproduce; if a manifest or fixture is involved, attach it.
+
+<!-- draft note 1040 -->
