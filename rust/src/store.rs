@@ -274,3 +274,45 @@ mod tests {
         let d1 = store.put_blob(b"hello").unwrap();
         let d2 = store.put_blob(b"hello").unwrap();
         assert_eq!(d1, d2);
+        assert!(store.has_blob(&d1));
+        assert_eq!(store.get_blob(&d1).unwrap(), b"hello");
+        fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn store_restore_and_verify() {
+        let dir = temp_dir("restore");
+        let work = dir.join("work");
+        fs::create_dir_all(&work).unwrap();
+        fs::write(work.join("in.txt"), b"foobar").unwrap();
+        fs::write(work.join("out.txt"), b"result-bytes").unwrap();
+
+        let store = Store::open(dir.join("cache")).unwrap();
+        let inputs = Store::hash_inputs(&work, &["in.txt".into()]).unwrap();
+        let command = vec!["build".to_string()];
+        let key = Manifest::compute_key(&inputs, &command);
+        let outputs = store.store_outputs(&work, &["out.txt".into()]).unwrap();
+        let manifest = Manifest {
+            version: FORMAT_VERSION,
+            producer: "cairn-rust".into(),
+            key: key.clone(),
+            command,
+            inputs,
+            outputs,
+        };
+        store.put_manifest(&manifest).unwrap();
+
+        // Delete the output, then restore it from cache.
+        fs::remove_file(work.join("out.txt")).unwrap();
+        let loaded = store.get_manifest(&key).unwrap().unwrap();
+        let n = store.restore_outputs(&work, &loaded).unwrap();
+        assert_eq!(n, 1);
+        assert_eq!(fs::read(work.join("out.txt")).unwrap(), b"result-bytes");
+
+        let report = store.verify_manifest(&loaded).unwrap();
+        assert!(report.is_healthy(), "report: {report:?}");
+        fs::remove_dir_all(&dir).ok();
+    }
+}
+
+// draft note 1039
