@@ -18,3 +18,11 @@ CI cache keys, ...).
 
 **Proposed behavior**
 
+What Cairn should do. If it touches the on-disk format, note that a format
+version bump and a `docs/FORMAT.md` update will be required.
+
+**Alternatives considered**
+
+Other tools or approaches you weighed.
+
+<!-- draft note 1041 -->
