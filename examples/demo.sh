@@ -47,3 +47,18 @@ echo "output.txt restored: $(cat output.txt)"
 
 echo
 echo "==> Cross-language: Rust computes the same key"
+key="$("$cairn" key --input input.txt -- sh -c 'tr a-z A-Z < input.txt > output.txt')"
+echo "key = $key"
+
+echo
+echo "==> Rust restores + verifies the Go-written manifest"
+rm -f output.txt
+"$cairn" restore --key "$key" --out-dir .
+"$cairn" verify --key "$key"
+echo "manifest:"
+"$cairn" show --key "$key"
+
+echo
+echo "==> Demo complete."
+
+<!-- draft note 1043 -->
