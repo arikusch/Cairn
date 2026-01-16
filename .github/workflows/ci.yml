@@ -51,3 +51,19 @@ jobs:
   interop:
     name: Cross-language interop
     runs-on: ubuntu-latest
+    needs: [rust, go]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - name: Build both tools
+        run: |
+          cd rust && cargo build --release && cd ..
+          mkdir -p bin
+          cd go && go build -o ../bin/cairn-run ./cmd/cairn-run && cd ..
+      - name: Run end-to-end demo
+        run: ./examples/demo.sh
+
+// draft note 1044
