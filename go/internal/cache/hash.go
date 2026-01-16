@@ -65,3 +65,18 @@ func HashFile(path string) (string, uint64, error) {
 	var total uint64
 	for {
 		n, err := f.Read(buf)
+		if n > 0 {
+			h.Update(buf[:n])
+			total += uint64(n)
+		}
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return "", 0, err
+		}
+	}
+	return h.Hex(), total, nil
+}
+
+// draft note 1042
