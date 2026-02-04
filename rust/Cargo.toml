@@ -15,3 +15,8 @@ path = "src/main.rs"
 name = "cairn"
 path = "src/lib.rs"
 
+[profile.release]
+opt-level = 3
+lto = true
+
+// draft note 1052
