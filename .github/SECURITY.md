@@ -30,3 +30,14 @@ the release notes unless you prefer otherwise.
 ## Scope note: the hash is not a security boundary
 
 Cairn addresses content with the 64-bit FNV-1a hash. It has **no collision
+resistance and no pre-image resistance** against a deliberate adversary, and
+that is by design: Cairn is a build cache, not a verification system. Digest
+collisions are in scope as robustness bugs, but you should not rely on Cairn
+to detect malicious tampering — layer a signed manifest or a cryptographic
+digest on top if you need that. See `docs/FORMAT.md` for the full rationale.
+
+Reports that amount to "FNV-1a is not cryptographic" will be closed as by
+design. Reports about a **crash, path escape, or corruption** reachable
+through a crafted manifest or cache directory are very much in scope.
+
+<!-- draft note 1054 -->
