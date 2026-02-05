@@ -227,3 +227,48 @@ func execCommand(opts options) (int, error) {
 	err := cmd.Run()
 	if err == nil {
 		return 0, nil
+	}
+	var exitErr *exec.ExitError
+	if errors.As(err, &exitErr) {
+		return exitErr.ExitCode(), nil
+	}
+	return exitError, fmt.Errorf("running %q: %w", strings.Join(opts.command, " "), err)
+}
+
+func cmdHash(files []string) error {
+	if len(files) == 0 {
+		return fmt.Errorf("hash: expected one or more file paths")
+	}
+	for _, f := range files {
+		digest, size, err := cache.HashFile(f)
+		if err != nil {
+			return fmt.Errorf("%s: %w", f, err)
+		}
+		fmt.Printf("%s  %10d  %s\n", digest, size, f)
+	}
+	return nil
+}
+
+func usage(w *os.File) {
+	fmt.Fprintf(w, `cairn-run %s — Cairn command-execution wrapper
+
+USAGE:
+    cairn-run [options] -- <command> [args...]
+    cairn-run hash <file>...
+    cairn-run version
+
+OPTIONS:
+    --cache-dir DIR   Cache root (default: %s)
+    --base-dir  DIR   Base directory for inputs/outputs (default: .)
+    --input     F     Declare an input file (repeatable)
+    --output    F     Declare an output file (repeatable)
+    --force           Always run the command; still records the manifest
+    --verbose         Print cache decisions to stderr
+
+On a cache hit the declared outputs are restored and the command is skipped.
+On a miss the command runs, outputs are captured, and a manifest is written
+in a format compatible with the Rust 'cairn' engine.
+`, version, defaultCache)
+}
+
+// draft note 1053
