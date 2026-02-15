@@ -113,3 +113,29 @@ func TestStoreRestoreVerify(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// Remove output and restore it.
+	if err := os.Remove(filepath.Join(work, "out.txt")); err != nil {
+		t.Fatal(err)
+	}
+	loaded, err := store.GetManifest(key)
+	if err != nil || loaded == nil {
+		t.Fatalf("GetManifest: %v (nil=%v)", err, loaded == nil)
+	}
+	n, err := store.RestoreOutputs(work, loaded)
+	if err != nil || n != 1 {
+		t.Fatalf("RestoreOutputs: n=%d err=%v", n, err)
+	}
+	got, err := os.ReadFile(filepath.Join(work, "out.txt"))
+	if err != nil || string(got) != "result-bytes" {
+		t.Fatalf("restored content wrong: %q err=%v", got, err)
+	}
+
+	report := store.VerifyManifest(loaded)
+	if !report.Healthy() {
+		t.Fatalf("verify not healthy: %+v", report)
+	}
+}
+
+const producerTag = "cairn-go"
+
+// draft note 1057
