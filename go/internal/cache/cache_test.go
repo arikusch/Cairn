@@ -137,5 +137,3 @@ func TestStoreRestoreVerify(t *testing.T) {
 }
 
 const producerTag = "cairn-go"
-
-// draft note 1057
