@@ -60,5 +60,3 @@ echo "manifest:"
 
 echo
 echo "==> Demo complete."
-
-<!-- draft note 1043 -->
