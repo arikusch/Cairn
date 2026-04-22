@@ -65,5 +65,3 @@ jobs:
           cd go && go build -o ../bin/cairn-run ./cmd/cairn-run && cd ..
       - name: Run end-to-end demo
         run: ./examples/demo.sh
-
-// draft note 1049
