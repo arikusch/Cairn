@@ -244,3 +244,45 @@ fn cmd_verify(args: &[String]) -> Result<ExitCode, String> {
         eprintln!("FAIL: cache integrity check failed");
         Ok(ExitCode::from(3))
     }
+}
+
+fn cmd_show(args: &[String]) -> Result<ExitCode, String> {
+    let p = parse(args)?;
+    let key = p.key.clone().ok_or("show: --key is required")?;
+    let store = Store::open(cache_root(&p)).map_err(|e| e.to_string())?;
+    match store.get_manifest(&key).map_err(|e| e.to_string())? {
+        Some(m) => {
+            println!("{}", m.to_json());
+            Ok(ExitCode::SUCCESS)
+        }
+        None => {
+            eprintln!("cairn: no manifest for key {key}");
+            Ok(ExitCode::from(2))
+        }
+    }
+}
+
+fn print_usage() {
+    eprintln!(
+        "cairn {} — content-addressed build cache\n\
+\n\
+USAGE:\n\
+    cairn <command> [options]\n\
+\n\
+COMMANDS:\n\
+    hash <file>...                       Print content digests of files\n\
+    key    --input F... [-- cmd...]      Compute a cache key from inputs\n\
+    store  --input F... --output F... [--key K] [-- cmd...]\n\
+                                         Store outputs and write a manifest\n\
+    restore --key K [--out-dir DIR]      Restore outputs from cache\n\
+    verify  --key K                      Verify store integrity for a key\n\
+    show    --key K                      Print a manifest as JSON\n\
+    version                              Print version\n\
+\n\
+GLOBAL OPTIONS:\n\
+    --cache-dir DIR   Cache root (default: {DEFAULT_CACHE})\n\
+    --base-dir  DIR   Base directory for --input/--output (default: .)\n\
+    --                Everything after is treated as the command\n",
+        env!("CARGO_PKG_VERSION")
+    );
+}
