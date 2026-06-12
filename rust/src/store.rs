@@ -314,5 +314,3 @@ mod tests {
         fs::remove_dir_all(&dir).ok();
     }
 }
-
-// draft note 1039
