@@ -270,5 +270,3 @@ On a miss the command runs, outputs are captured, and a manifest is written
 in a format compatible with the Rust 'cairn' engine.
 `, version, defaultCache)
 }
-
-// draft note 1056
