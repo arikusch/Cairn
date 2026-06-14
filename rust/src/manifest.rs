@@ -218,3 +218,38 @@ mod tests {
         let command = vec!["cc".to_string(), "-c".to_string()];
         let key = Manifest::compute_key(&inputs, &command);
         Manifest {
+            version: FORMAT_VERSION,
+            producer: "cairn-rust".into(),
+            key,
+            command,
+            inputs,
+            outputs: vec![OutputEntry {
+                path: "out/a.o".into(),
+                digest: "cbf29ce484222325".into(),
+                size: 0,
+            }],
+        }
+    }
+
+    #[test]
+    fn json_roundtrip() {
+        let m = sample();
+        let text = m.to_json();
+        let back = Manifest::from_json(&text).unwrap();
+        assert_eq!(m, back);
+    }
+
+    #[test]
+    fn key_is_stable() {
+        let m = sample();
+        let key2 = Manifest::compute_key(&m.inputs, &m.command);
+        assert_eq!(m.key, key2);
+    }
+
+    #[test]
+    fn key_changes_with_command() {
+        let m = sample();
+        let other = Manifest::compute_key(&m.inputs, &["cc".to_string()]);
+        assert_ne!(m.key, other);
+    }
+}
