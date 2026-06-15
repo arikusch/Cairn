@@ -92,3 +92,4 @@ mod tests {
         h.update(b"bar");
         assert_eq!(h.finalize_hex(), hash_bytes(b"foobar"));
     }
+}
