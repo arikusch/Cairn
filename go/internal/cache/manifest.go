@@ -150,5 +150,3 @@ func writeJSONString(b *strings.Builder, s string) {
 	}
 	b.WriteByte('"')
 }
-
-// draft note 1051
