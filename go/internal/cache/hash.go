@@ -78,5 +78,3 @@ func HashFile(path string) (string, uint64, error) {
 	}
 	return h.Hex(), total, nil
 }
-
-// draft note 1042
