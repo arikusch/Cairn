@@ -360,3 +360,54 @@ fn utf8_len(lead: u8) -> usize {
     } else if lead >> 4 == 0b1110 {
         3
     } else {
+        4
+    }
+}
+
+/// Helper to build an object from owned pairs while preserving order.
+pub fn object(pairs: Vec<(&str, Json)>) -> Json {
+    Json::Object(pairs.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
+}
+
+/// Sort a set of (key, value) string pairs deterministically for hashing.
+pub fn sorted_map(map: BTreeMap<String, String>) -> Json {
+    Json::Object(map.into_iter().map(|(k, v)| (k, Json::Str(v))).collect())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn roundtrip_object() {
+        let v = object(vec![
+            ("name", Json::Str("cairn".into())),
+            ("count", Json::Uint(3)),
+            ("ok", Json::Bool(true)),
+            (
+                "items",
+                Json::Array(vec![Json::Str("a".into()), Json::Str("b".into())]),
+            ),
+        ]);
+        let text = v.encode();
+        assert_eq!(
+            text,
+            r#"{"name":"cairn","count":3,"ok":true,"items":["a","b"]}"#
+        );
+        let parsed = parse(&text).unwrap();
+        assert_eq!(parsed, v);
+    }
+
+    #[test]
+    fn escapes() {
+        let v = Json::Str("line1\nline2\t\"quote\"".into());
+        let text = v.encode();
+        let parsed = parse(&text).unwrap();
+        assert_eq!(parsed, v);
+    }
+
+    #[test]
+    fn rejects_trailing() {
+        assert!(parse("{}garbage").is_err());
+    }
+}
