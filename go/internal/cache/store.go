@@ -212,3 +212,4 @@ func atomicWrite(dest string, content []byte) error {
 		return err
 	}
 	return os.Rename(tmp, dest)
+}
