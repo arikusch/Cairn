@@ -170,3 +170,28 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   never collide with the original by digest alone.
 
 ## [0.1.0] - 2017-11-05
+
+### Added
+
+- Initial cut of the Rust engine (`cairn`): 64-bit FNV-1a content hashing
+  with a canonical 16-character lowercase hex digest, `hash`, `key`,
+  `store`, and `restore` subcommands, and the content-addressed store layout
+  (`objects/<aa>/<digest>`, `manifests/<key>.json`).
+- A dependency-free JSON reader/writer so manifests serialize canonically
+  with no third-party crates.
+
+[Unreleased]: https://github.com/jfrost4/Cairn/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/jfrost4/Cairn/compare/v4.3.0...v5.1.0
+[4.3.0]: https://github.com/jfrost4/Cairn/compare/v3.2.0...v4.3.0
+[3.2.0]: https://github.com/jfrost4/Cairn/compare/v2.4.0...v3.2.0
+[2.4.0]: https://github.com/jfrost4/Cairn/compare/v1.0.0...v2.4.0
+[1.0.0]: https://github.com/jfrost4/Cairn/compare/v0.9.0...v1.0.0
+[0.9.0]: https://github.com/jfrost4/Cairn/compare/v0.8.0...v0.9.0
+[0.8.0]: https://github.com/jfrost4/Cairn/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/jfrost4/Cairn/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/jfrost4/Cairn/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/jfrost4/Cairn/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/jfrost4/Cairn/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/jfrost4/Cairn/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/jfrost4/Cairn/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/jfrost4/Cairn/releases/tag/v0.1.0
