@@ -137,3 +137,4 @@ A cache is *healthy* for a key when all three hold.
   logical entry.
 - Either tool can restore and verify a manifest written by the other.
 - New format versions bump `version`; readers should reject versions they do
+  not understand.
