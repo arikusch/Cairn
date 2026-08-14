@@ -63,3 +63,16 @@
   <text x="760" y="78"  text-anchor="end" class="dim" fill="#6b5a34" font-size="11">RELATIVE COST</text>
   <line x1="560" y1="86" x2="780" y2="86" stroke="#c68a2e" stroke-width="1"/>
 
+  <text x="560" y="120" fill="#9c6318" font-size="13">MISS · run cmd</text>
+  <rect x="560" y="128" width="220" height="14" rx="2" fill="#e0975a" class="bar1"/>
+
+  <text x="560" y="176" fill="#2f6b4a" font-size="13">HIT · restore</text>
+  <rect x="560" y="184" width="220" height="14" rx="2" fill="#7fc9a0" class="bar2"/>
+
+  <line x1="560" y1="230" x2="780" y2="230" stroke="#c68a2e" stroke-width="1"/>
+  <text x="560" y="256" fill="#3f2f10" font-size="12">Bars show shape, not</text>
+  <text x="560" y="274" fill="#3f2f10" font-size="12">numbers. Measure your</text>
+  <text x="560" y="292" fill="#3f2f10" font-size="12">own workload, see</text>
+  <text x="560" y="310" fill="#3f2f10" font-size="12">the ledger section.</text>
+  <text x="560" y="350" fill="#8a5a16" font-size="11">FNV-1a · non-cryptographic</text>
+</svg>
