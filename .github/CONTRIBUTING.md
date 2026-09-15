@@ -51,3 +51,15 @@ cd go && gofmt -l . && go vet ./... && go test ./...
 
 ## Reporting bugs
 
+Use the bug report issue template. Include the exact command, the output of
+`cairn version` and `cairn-run version`, your OS, and — for cache-key
+questions — the contents of the relevant `manifests/<key>.json`.
+
+## Security
+
+Do not open a public issue for a security concern; see
+[SECURITY.md](SECURITY.md).
+
+## Code of conduct
+
+Participation is covered by the [Code of Conduct](CODE_OF_CONDUCT.md).
