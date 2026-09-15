@@ -13,3 +13,8 @@ One or two sentences on the change and the problem it solves.
       `docs/FORMAT.md` updated, reference vectors updated, format version
       bumped if incompatible.
 - [ ] No new third-party dependencies (see CONTRIBUTING.md).
+- [ ] `cargo fmt` and `gofmt` clean.
+
+## Notes for reviewers
+
+Anything that needs eyes: edge cases, trade-offs, or follow-ups.
