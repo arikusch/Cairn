@@ -4,3 +4,5 @@ contact_links:
     url: https://github.com/jfrost4/Cairn/security/advisories/new
     about: Please report security concerns privately, not as public issues.
   - name: Format specification
+    url: https://github.com/jfrost4/Cairn/blob/main/docs/FORMAT.md
+    about: The normative spec for hashing, keys, manifests, and the store layout.
