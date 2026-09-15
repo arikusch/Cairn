@@ -38,5 +38,3 @@ If the issue involves a specific key, paste the output of
 **Reproduction**
 
 Minimal steps to reproduce; if a manifest or fixture is involved, attach it.
-
-<!-- draft note 1040 -->
