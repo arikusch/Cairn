@@ -24,5 +24,3 @@ version bump and a `docs/FORMAT.md` update will be required.
 **Alternatives considered**
 
 Other tools or approaches you weighed.
-
-<!-- draft note 1041 -->
