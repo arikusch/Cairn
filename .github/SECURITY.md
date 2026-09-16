@@ -39,5 +39,3 @@ digest on top if you need that. See `docs/FORMAT.md` for the full rationale.
 Reports that amount to "FNV-1a is not cryptographic" will be closed as by
 design. Reports about a **crash, path escape, or corruption** reachable
 through a crafted manifest or cache directory are very much in scope.
-
-<!-- draft note 1054 -->
