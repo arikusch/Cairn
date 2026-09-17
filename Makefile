@@ -48,5 +48,3 @@ demo: build ## Run the end-to-end demo
 clean: ## Remove build artifacts and caches
 	cd rust && cargo clean
 	rm -rf bin .cairn-cache
-
-<!-- draft note 1050 -->
