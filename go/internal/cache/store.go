@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // Store is the on-disk content-addressed store, byte-compatible with the Rust
@@ -135,20 +136,27 @@ func (s *Store) StoreOutputs(base string, paths []string) ([]Entry, error) {
 }
 
 // RestoreOutputs writes all outputs from a manifest into base, returning the
-// count. Fails if any referenced blob is missing.
+// count. Fails if any referenced blob is missing, or if any output path would
+// escape base.
 func (s *Store) RestoreOutputs(base string, m *Manifest) (int, error) {
+	targets := make([]string, 0, len(m.Outputs))
 	for _, o := range m.Outputs {
 		if !s.HasBlob(o.Digest) {
 			return 0, fmt.Errorf("missing blob %s for output %s", o.Digest, o.Path)
 		}
+		dest, err := safeRestorePath(base, o.Path)
+		if err != nil {
+			return 0, err
+		}
+		targets = append(targets, dest)
 	}
 	written := 0
-	for _, o := range m.Outputs {
+	for i, o := range m.Outputs {
 		content, err := s.GetBlob(o.Digest)
 		if err != nil {
 			return written, err
 		}
-		dest := filepath.Join(base, filepath.FromSlash(o.Path))
+		dest := targets[i]
 		if err := os.MkdirAll(filepath.Dir(dest), 0o755); err != nil {
 			return written, err
 		}
@@ -158,6 +166,23 @@ func (s *Store) RestoreOutputs(base string, m *Manifest) (int, error) {
 		written++
 	}
 	return written, nil
+}
+
+// safeRestorePath validates that a manifest output path stays inside base.
+// Absolute paths and any path containing ".." are rejected, so a tampered
+// manifest cannot write outside the restore directory.
+func safeRestorePath(base, rel string) (string, error) {
+	if rel == "" {
+		return "", fmt.Errorf("empty output path")
+	}
+	if filepath.IsAbs(rel) || strings.HasPrefix(rel, "/") || strings.HasPrefix(rel, "\\") {
+		return "", fmt.Errorf("refusing absolute output path %q", rel)
+	}
+	clean := filepath.Clean(filepath.FromSlash(rel))
+	if clean == ".." || strings.HasPrefix(clean, ".."+string(filepath.Separator)) {
+		return "", fmt.Errorf("refusing output path %q outside the restore directory", rel)
+	}
+	return filepath.Join(base, clean), nil
 }
 
 // VerifyReport summarizes a manifest verification.
