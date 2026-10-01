@@ -137,3 +137,30 @@ func TestStoreRestoreVerify(t *testing.T) {
 }
 
 const producerTag = "cairn-go"
+
+func TestNormalizePath(t *testing.T) {
+	cases := map[string]string{
+		"src\\main.go": "src/main.go",
+		"src/main.go":  "src/main.go",
+		"a\\b\\c.txt":  "a/b/c.txt",
+	}
+	for in, want := range cases {
+		if got := NormalizePath(in); got != want {
+			t.Errorf("NormalizePath(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
+
+func TestSortEntriesDeterministic(t *testing.T) {
+	entries := []Entry{
+		{Path: "z.txt", Digest: "af63dc4c8601ec8c", Size: 1},
+		{Path: "a.txt", Digest: "85944171f73967e8", Size: 6},
+		{Path: "m.txt", Digest: "cbf29ce484222325", Size: 0},
+	}
+	SortEntries(entries)
+	for i, want := range []string{"a.txt", "m.txt", "z.txt"} {
+		if entries[i].Path != want {
+			t.Fatalf("entry %d = %q, want %q", i, entries[i].Path, want)
+		}
+	}
+}
