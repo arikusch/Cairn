@@ -164,3 +164,33 @@ func TestSortEntriesDeterministic(t *testing.T) {
 		}
 	}
 }
+
+func TestRestoreOutputsRejectsPathEscape(t *testing.T) {
+	dir := t.TempDir()
+	store, err := OpenStore(filepath.Join(dir, "cache"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	digest, err := store.PutBlob([]byte("payload"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	work := filepath.Join(dir, "work")
+	if err := os.MkdirAll(work, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	m := &Manifest{
+		Version:  FormatVersion,
+		Producer: producerTag,
+		Key:      "k",
+		Command:  []string{},
+		Inputs:   []Entry{},
+		Outputs:  []Entry{{Path: "../escaped.txt", Digest: digest, Size: 7}},
+	}
+	if _, err := store.RestoreOutputs(work, m); err == nil {
+		t.Fatal("expected path escape to be rejected")
+	}
+	if _, err := os.Stat(filepath.Join(dir, "escaped.txt")); err == nil {
+		t.Fatal("output escaped the restore directory")
+	}
+}

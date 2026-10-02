@@ -14,7 +14,7 @@
 
 use std::fs;
 use std::io::{Read, Write};
-use std::path::{Path, PathBuf};
+use std::path::{Component, Path, PathBuf};
 
 use crate::hash::Hasher;
 use crate::manifest::{InputEntry, Manifest, OutputEntry};
@@ -188,14 +188,17 @@ impl Store {
                 ));
             }
         }
-        let mut written = 0;
+        let mut targets = Vec::with_capacity(manifest.outputs.len());
         for out in &manifest.outputs {
+            targets.push(safe_target(base, &out.path)?);
+        }
+        let mut written = 0;
+        for (out, dest) in manifest.outputs.iter().zip(targets.iter()) {
             let content = self.get_blob(&out.digest)?;
-            let dest = base.join(&out.path);
             if let Some(parent) = dest.parent() {
                 fs::create_dir_all(parent)?;
             }
-            fs::write(&dest, &content)?;
+            fs::write(dest, &content)?;
             written += 1;
         }
         Ok(written)
@@ -244,6 +247,37 @@ impl VerifyReport {
     pub fn is_healthy(&self) -> bool {
         self.missing.is_empty() && self.corrupt.is_empty() && self.key_matches
     }
+}
+
+/// Resolve a manifest output path beneath `base`, rejecting absolute paths
+/// and any path that would escape the restore directory.
+fn safe_target(base: &Path, rel: &str) -> std::io::Result<PathBuf> {
+    if rel.is_empty() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            "empty output path",
+        ));
+    }
+    if Path::new(rel).is_absolute() || rel.starts_with('/') || rel.starts_with('\\') {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            format!("refusing absolute output path {rel:?}"),
+        ));
+    }
+    let mut out = base.to_path_buf();
+    for comp in Path::new(rel).components() {
+        match comp {
+            Component::Normal(part) => out.push(part),
+            Component::CurDir => {}
+            _ => {
+                return Err(std::io::Error::new(
+                    std::io::ErrorKind::InvalidInput,
+                    format!("refusing output path {rel:?} outside the restore directory"),
+                ));
+            }
+        }
+    }
+    Ok(out)
 }
 
 /// Normalize a path string to forward slashes for cross-platform manifests.
@@ -311,6 +345,30 @@ mod tests {
 
         let report = store.verify_manifest(&loaded).unwrap();
         assert!(report.is_healthy(), "report: {report:?}");
+        fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn restore_rejects_path_escape() {
+        let dir = temp_dir("escape");
+        let work = dir.join("work");
+        fs::create_dir_all(&work).unwrap();
+        let store = Store::open(dir.join("cache")).unwrap();
+        let digest = store.put_blob(b"payload").unwrap();
+        let manifest = Manifest {
+            version: FORMAT_VERSION,
+            producer: "cairn-rust".into(),
+            key: "k".into(),
+            command: vec![],
+            inputs: vec![],
+            outputs: vec![OutputEntry {
+                path: "../escaped.txt".into(),
+                digest,
+                size: 7,
+            }],
+        };
+        assert!(store.restore_outputs(&work, &manifest).is_err());
+        assert!(!dir.join("escaped.txt").exists());
         fs::remove_dir_all(&dir).ok();
     }
 }
