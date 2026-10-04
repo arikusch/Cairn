@@ -6,6 +6,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- `cairn restore` now rejects manifest output entries whose paths are
+  absolute or contain `..`, so a tampered manifest cannot write outside
+  the restore directory.
+
 ## [5.1.0] - 2026-08-05
 
 ### Added
