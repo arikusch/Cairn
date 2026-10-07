@@ -11,6 +11,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `cairn restore` now rejects manifest output entries whose paths are
   absolute or contain `..`, so a tampered manifest cannot write outside
   the restore directory.
+- `examples/demo.sh` carries the executable bit again, so the scripted demo
+  runs from a clean checkout (the CI interop job runs it directly).
 
 ## [5.1.0] - 2026-08-05
 
