@@ -359,6 +359,16 @@ cairn show   --key "$key"
 cairn verify --key "$key"
 ```
 
+**Pin the cache in CI** — point every wrapped command at one directory and persist it
+between runs, so the cache survives workspace cleanup:
+
+```bash
+cairn-run --cache-dir .ci-cache --input src.c --output a.o -- cc -c src.c -o a.o
+```
+
+The directory is portable: hand the same store to the engine with
+`cairn --cache-dir .ci-cache restore --key <key>`.
+
 ## Command reference
 
 ### `cairn` — the Rust engine
